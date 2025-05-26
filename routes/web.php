@@ -6,12 +6,34 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\ArchiveController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ProductdetailsController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |----------------------------------------------------------------------
 | Web Routes
 |----------------------------------------------------------------------
 */
+
+
+// Halaman utama (home)
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Halaman shop / toko
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+
+// Halaman detail produk
+Route::get('/productdetails', [ProductdetailsController::class, 'index'])->name('productdetails');
+
+// Halaman keranjang (cart)
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+
+// Halaman checkout
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+
 
 // Routes untuk login dan register
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
