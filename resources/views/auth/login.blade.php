@@ -2,27 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
     }
 
     body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg,rgb(229, 233, 234) 0%, #a084e8 100%);
-  transition: background 0.5s ease-in-out;
-  color: #fff;
-  margin: 0;
-  padding: 0;
-  height: 100vh; /* full viewport height */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, rgb(229, 233, 234) 0%, #a084e8 100%);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     .container {
       background-color: #fff;
@@ -36,8 +34,9 @@
 
     h1 {
       text-align: center;
-      color: #333;
       margin-bottom: 30px;
+      font-weight: 600;
+      color: #6c63ff;
     }
 
     .form-group {
@@ -56,32 +55,67 @@
       width: 100%;
       padding: 12px;
       font-size: 14px;
-      border: 1px solid #ccc;
+      border: 1.5px solid #ccc;
       border-radius: 8px;
-      transition: 0.2s;
+      transition: 0.3s;
+      font-family: 'Poppins', sans-serif;
     }
 
-    input:focus {
+    input[type="email"]:focus,
+    input[type="password"]:focus {
       border-color: #6c63ff;
       outline: none;
-      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+      box-shadow: 0 0 8px rgba(108, 99, 255, 0.4);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    button,
+    .btn-cancel {
+      flex: 1;
+      padding: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.3s ease, color 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      user-select: none;
     }
 
     button {
-      width: 100%;
-      padding: 12px;
       background: #6c63ff;
-      color: #fff;
-      font-weight: 600;
-      font-size: 15px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease;
+      color: white;
     }
 
     button:hover {
       background: #554ed6;
+    }
+
+    .btn-cancel {
+      background: transparent;
+      border: 2px solid #6c63ff;
+      color: #6c63ff;
+      line-height: 1;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn-cancel:hover {
+      background: #6c63ff;
+      color: white;
+      border-color: #6c63ff;
     }
 
     p {
@@ -91,13 +125,14 @@
       color: #666;
     }
 
-    a {
+    p a {
       color: #6c63ff;
+      font-weight: 600;
       text-decoration: none;
-      font-weight: 500;
+      transition: text-decoration 0.3s ease;
     }
 
-    a:hover {
+    p a:hover {
       text-decoration: underline;
     }
   </style>
@@ -109,13 +144,16 @@
       @csrf
       <div class="form-group">
         <label for="email">Email</label>
-        <input placeholder="Masukkan email anda" type="email" id="email" name="email" required>
+        <input placeholder="Masukkan email anda" type="email" id="email" name="email" required />
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input placeholder="Masukkan password anda" type="password" id="password" name="password" required>
+        <input placeholder="Masukkan password anda" type="password" id="password" name="password" required />
       </div>
-      <button type="submit">Login</button>
+      <div class="btn-group">
+        <button type="submit">Login</button>
+        <a href="{{ route('home') }}" class="btn-cancel">Batal</a>
+      </div>
     </form>
     <p>Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a></p>
   </div>

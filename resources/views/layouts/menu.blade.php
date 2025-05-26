@@ -4,6 +4,19 @@
     <li class="nav-item">
       <a href="/feed" class="nav-link">
         <i class="nav-icon fas fa-dashboard"></i>
+        <p class="text-light">Pesanan</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/feed" class="nav-link">
+        <i class="nav-icon fas fa-dashboard"></i>
+        <p class="text-light">Produk</p>
+      </a>
+    </li>
+    <br><br>
+    <li class="nav-item">
+      <a href="/feed" class="nav-link">
+        <i class="nav-icon fas fa-dashboard"></i>
         <p class="text-light">Beranda</p>
       </a>
     </li>
