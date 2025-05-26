@@ -11,16 +11,17 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #6c63ff, #a084e8);
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg,rgb(229, 233, 234) 0%, #a084e8 100%);
+  transition: background 0.5s ease-in-out;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* full viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
     .container {
       background-color: #fff;
       padding: 40px 30px;

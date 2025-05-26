@@ -40,10 +40,15 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 // Group route yang memerlukan otentikasi
 Route::middleware('auth')->group(function () {
+
+    Route::get('/profil', [HomeController::class, 'show'])->name('home.show');
+    Route::get('/home/edit', [HomeController::class, 'edit'])->name('home.edit');
+    Route::put('/home/update', [HomeController::class, 'update'])->name('home.update');
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

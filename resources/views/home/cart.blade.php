@@ -67,16 +67,35 @@
                 <a href="index.html"><img src="dist/img/core-img/logo.png" alt=""></a>
             </div>
             <!-- Amado Nav -->
-            <nav class="amado-nav">
-                <ul>
-                    <li><a href="{{ route('login') }}" >LOGIN</a></li>
-                    <li><a href="{{ route('home') }}" >Home</a></li>
-                    <li><a href="{{ route('shop') }}" >Shop</a></li>
-                    <li><a href="{{ route('productdetails') }}">Product Details</a></li>
-                    <li class="active"><a href="{{ route('cart') }}">Cart</a></li>
-                    <li><a href="{{ route('checkout') }}">Checkout</a></li>
+<nav class="amado-nav">
+    <ul>
+        @if(Auth::check())
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/profil" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="brand-text font-weight-bold">
+                        <b>{{ Auth::user()->name }}</b>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST" class="dropdown-item p-0">
+                            @csrf
+                            <button type="submit" class="btn btn-link dropdown-item">Logout</button>
+                        </form>
+                    </li>
                 </ul>
-            </nav>
+            </li>
+        @else
+            <li><a href="{{ route('login') }}"><b>Guest (Login)</b></a></li>
+        @endif
+
+        <li class="{{ request()->routeIs('home') ? 'active' : '' }}"><a href="{{ route('home') }}">Home</a></li>
+        <li class="{{ request()->routeIs('shop') ? 'active' : '' }}"><a href="{{ route('shop') }}">Shop</a></li>
+        <li class="{{ request()->routeIs('productdetails') ? 'active' : '' }}"><a href="{{ route('productdetails') }}">Product Details</a></li>
+        <li class="{{ request()->routeIs('cart') ? 'active' : '' }}"><a href="{{ route('cart') }}">Cart</a></li>
+        <li class="{{ request()->routeIs('checkout') ? 'active' : '' }}"><a href="{{ route('checkout') }}">Checkout</a></li>
+    </ul>
+</nav>
             <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-100">
                 <a href="#" class="btn amado-btn mb-15">%Discount%</a>
