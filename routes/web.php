@@ -11,6 +11,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ProductdetailsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ProductController;
 
 /*
 |----------------------------------------------------------------------
@@ -44,21 +45,19 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // Group route yang memerlukan otentikasi
-Route::middleware('auth')->group(function () {
-
-    Route::get('/profil', [HomeController::class, 'show'])->name('home.show');
-    Route::get('/home/edit', [HomeController::class, 'edit'])->name('home.edit');
-    Route::put('/home/update', [HomeController::class, 'update'])->name('home.update');
-
-    // Dashboard
+// Group route hanya untuk admin
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    // Dashboard (admin only)
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
-    // Profil
-    Route::get('/profile', [ProfilController::class, 'show'])->name('profile.show');
-    Route::get('/profile/edit', [ProfilController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile/update', [ProfilController::class, 'update'])->name('profile.update');
-    
-    // Feed Routes
+
+    // Produk (admin only)
+    Route::get('/produk', [ProductController::class, 'index'])->name('produk.index');
+    Route::post('/produk', [ProductController::class, 'store'])->name('produk.store');
+    Route::get('/produk/{id}/edit', [ProductController::class, 'edit'])->name('produk.edit');
+    Route::put('/produk/{id}', [ProductController::class, 'update'])->name('produk.update');
+    Route::delete('/produk/{id}', [ProductController::class, 'destroy'])->name('produk.destroy');
+
+        // Feed Routes
     Route::get('/feed', [FeedController::class, 'index'])->name('feed.index');
     Route::get('/feed/create', [FeedController::class, 'create'])->name('feed.create');
     Route::post('/feed/upload', [FeedController::class, 'upload'])->name('feed.upload');
@@ -74,5 +73,32 @@ Route::middleware('auth')->group(function () {
     // Archive Routes
     Route::get('/archive', [ArchiveController::class, 'index'])->name('archive.index');
     Route::get('/archive/download', [ArchiveController::class, 'download'])->name('archive.download');
+
+        // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // Profil
+    Route::get('/profile', [ProfilController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfilController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfilController::class, 'update'])->name('profile.update');
 });
+
+
+    Route::get('/profil', [HomeController::class, 'show'])->name('home.show');
+    Route::get('/home/edit', [HomeController::class, 'edit'])->name('home.edit');
+    Route::put('/home/update', [HomeController::class, 'update'])->name('home.update');
+
+
+
+//     //behome admin
+
+// Route::get('/produk', [ProductController::class, 'index'])->name('produk.index');
+// Route::post('/produk', [ProductController::class, 'store'])->name('produk.store');
+// Route::get('/produk/{id}/edit', [ProductController::class, 'edit'])->name('produk.edit');
+// Route::put('/produk/{id}', [ProductController::class, 'update'])->name('produk.update');
+// Route::delete('/produk/{id}', [ProductController::class, 'destroy'])->name('produk.destroy');
+
+    
+
+
 

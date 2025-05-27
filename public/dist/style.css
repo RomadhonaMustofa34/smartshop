@@ -43,7 +43,7 @@
 
 /* Tombol logout dalam dropdown */
 .dropdown-menu li button {
-    background: #ffffff; /* warna merah modern */
+    background: #ffffff;
     border: none;
     width: 100%;
     text-align: center;
