@@ -27,7 +27,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 
 // Halaman detail produk
-Route::get('/productdetails', [ProductdetailsController::class, 'index'])->name('productdetails');
+Route::get('/productdetails', [ProductdetailsController::class, 'index'])->name('productdetails.index');
+Route::get('/product/{id}', [ProductdetailsController::class, 'show'])->name('productdetails.show');
+
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+
 
 // Halaman keranjang (cart)
 Route::get('/cart', [CartController::class, 'index'])->name('cart');

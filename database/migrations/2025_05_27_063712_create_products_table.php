@@ -18,6 +18,7 @@ public function up()
         $table->id();
         $table->string('name');
         $table->decimal('price', 12, 2);
+        $table->text('description')->nullable();
         $table->string('image');
         $table->timestamps();
     });

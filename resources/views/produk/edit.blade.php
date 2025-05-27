@@ -20,12 +20,17 @@
 
         <div class="mb-3">
             <label for="name" class="form-label">Nama Produk</label>
-            <input type="text" name="name" id="name" value="{{ $product->name }}" class="form-control" required>
+            <input type="text" name="name" id="name" value="{{ old('name', $product->name) }}" class="form-control" required>
         </div>
 
         <div class="mb-3">
             <label for="price" class="form-label">Harga Produk</label>
-            <input type="number" name="price" id="price" value="{{ $product->price }}" class="form-control" required>
+            <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Deskripsi Produk</label>
+            <textarea name="description" id="description" rows="4" class="form-control" required>{{ old('description', $product->description) }}</textarea>
         </div>
 
         <div class="mb-3">

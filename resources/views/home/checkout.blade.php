@@ -89,11 +89,22 @@
             <li><a href="{{ route('login') }}"><b>Guest (Login)</b></a></li>
         @endif
 
-        <li class="{{ request()->routeIs('home') ? 'active' : '' }}"><a href="{{ route('home') }}">Home</a></li>
-        <li class="{{ request()->routeIs('shop') ? 'active' : '' }}"><a href="{{ route('shop') }}">Shop</a></li>
-        <li class="{{ request()->routeIs('productdetails') ? 'active' : '' }}"><a href="{{ route('productdetails') }}">Product Details</a></li>
-        <li class="{{ request()->routeIs('cart') ? 'active' : '' }}"><a href="{{ route('cart') }}">Cart</a></li>
-        <li class="{{ request()->routeIs('checkout') ? 'active' : '' }}"><a href="{{ route('checkout') }}">Checkout</a></li>
+        <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
+    <a href="{{ route('home') }}">Home</a>
+</li>
+<li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
+    <a href="{{ route('shop') }}">Shop</a>
+</li>
+<li>
+    <!-- Link detail produk butuh id, jadi biasanya tidak di nav umum -->
+    <!-- Hapus atau ganti sesuai kebutuhan -->
+</li>
+<li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
+    <a href="{{ route('cart') }}">Cart</a>
+</li>
+<li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
+    <a href="{{ route('checkout') }}">Checkout</a>
+</li>
     </ul>
 </nav>
             <!-- Button Group -->

@@ -7,11 +7,12 @@ use App\Models\Product;
 
 class HomeController extends Controller
 {
-     public function index()
+    public function index() 
     {
-         $products = Product::latest()->get();
-        return view('home.index', compact('products'));
+    $products = Product::all();
+    return view('home.index', compact('products'));
     }
+
     
 
     public function show()
