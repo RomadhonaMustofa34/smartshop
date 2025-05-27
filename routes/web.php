@@ -30,7 +30,7 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/productdetails', [ProductdetailsController::class, 'index'])->name('productdetails.index');
 Route::get('/product/{id}', [ProductdetailsController::class, 'show'])->name('productdetails.show');
 
-Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
 
 
 // Halaman keranjang (cart)

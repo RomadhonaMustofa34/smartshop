@@ -95,10 +95,10 @@
                     <li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
                         <a href="{{ route('shop') }}">Shop</a>
                     </li>
-                    {{-- Hapus link detail produk di navbar umum karena butuh id --}}
-                    <li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
+                    
+                    <!-- <li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
                         <a href="{{ route('cart') }}">Cart</a>
-                    </li>
+                    </li> -->
                     <li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
                         <a href="{{ route('checkout') }}">Checkout</a>
                     </li>
@@ -112,8 +112,9 @@
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
                 <a href="{{ route('cart') }}" class="cart-nav">
-                    <img src="{{ asset('dist/img/core-img/cart.png') }}" alt=""> Cart <span>(0)</span>
-                </a>
+    <img src="{{ asset('dist/img/core-img/cart.png') }}" alt=""> Cart <span>({{ $cartItemCount }})</span>
+</a>
+
                 <a href="#" class="fav-nav">
                     <img src="{{ asset('dist/img/core-img/favorites.png') }}" alt=""> Favourite
                 </a>
