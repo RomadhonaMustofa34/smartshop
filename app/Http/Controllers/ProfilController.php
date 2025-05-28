@@ -36,30 +36,26 @@ class ProfilController extends Controller
      */
     public function update(Request $request)
     {
-        // Validasi input
         $request->validate([
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required|string|max:255',
-            'bio' => 'nullable|string|max:500',
+            'alamat' => 'nullable|string|max:500',
+            'no_hp' => ['nullable', 'regex:/^[0-9]+$/'],
         ]);
 
         $user = auth()->user();
 
-        // Periksa apakah ada file foto profil yang diunggah
         if ($request->hasFile('profile_picture')) {
-            // Hapus foto lama jika ada
-            if ($user->profile_picture) {
-                \Storage::disk('public')->delete($user->profile_picture);
+            if ($user->profile_picture && Storage::disk('public')->exists($user->profile_picture)) {
+                Storage::disk('public')->delete($user->profile_picture);
             }
-
-            // Simpan foto profil baru
             $filePath = $request->file('profile_picture')->store('profile_pictures', 'public');
             $user->profile_picture = $filePath;
         }
 
-        // Perbarui name dan bio
         $user->name = $request->name;
-        $user->bio = $request->bio;
+        $user->alamat = $request->alamat;
+        $user->no_hp = preg_replace('/\D/', '', $request->no_hp ?? '');
 
         if ($user->save()) {
             return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');

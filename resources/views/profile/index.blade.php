@@ -24,9 +24,19 @@
         font-weight: bold;
     }
 
-    .profile-bio {
-        font-style: italic;
-        color: rgba(255, 255, 255, 0.8);
+    .profile-info {
+        margin-top: 20px;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        text-align: left;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .profile-info strong {
+        display: inline-block;
+        width: 110px;
     }
 
     /* Tombol Edit */
@@ -35,6 +45,7 @@
         color: white;
         border: none;
         transition: transform 0.3s, box-shadow 0.3s;
+        margin-top: 25px;
     }
 
     .btn-edit:hover {
@@ -68,8 +79,13 @@
             <!-- Username -->
             <h3 class="profile-name">{{ $user->name }}</h3>
 
-            <!-- Bio -->
-            <p class="profile-bio">{{ $user->bio ?? 'Belum ada bio yang ditulis.' }}</p>
+            <!-- Info Profil -->
+            <div class="profile-info">
+                <p><strong>Email:</strong> {{ $user->email }}</p>
+                <p><strong>Alamat:</strong> {{ $user->alamat ?? 'Belum ada alamat.' }}</p>
+                <p><strong>No HP:</strong> {{ $user->no_hp ?? 'Belum ada nomor HP.' }}</p>
+                <p><strong>Bergabung sejak:</strong> {{ $user->created_at->format('d M Y') }}</p>
+            </div>
 
             <!-- Tombol Edit -->
             <a href="{{ route('profile.edit') }}" class="btn btn-edit btn-lg px-4">

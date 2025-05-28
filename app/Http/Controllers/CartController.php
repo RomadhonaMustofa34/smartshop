@@ -40,37 +40,50 @@ public function add(Request $request)
 
 
     public function index()
-{
-    $cartItems = Cart::with('product') // eager load relasi produk
-        ->where('user_id', Auth::id())
-        ->get();
+    {
+        $cartItems = Cart::with('product') // eager load produk
+            ->where('user_id', Auth::id())
+            ->get();
 
-    $subtotal = $cartItems->sum(function ($item) {
-        return $item->product->price * $item->quantity;
-    });
+        $subtotal = $cartItems->sum(function ($item) {
+            return $item->product->price * $item->quantity;
+        });
 
-    // Logika ongkir
-    $delivery = ($subtotal >= 100) ? 0 : 10;
+        // Hitung total item (jumlah barang)
+        $totalItems = $cartItems->sum('quantity');
 
-    $total = $subtotal + $delivery;
+        // Ongkir per item (misal Rp 3000)
+        $ongkir_per_item = 3000;
 
-    return view('home.cart', compact('cartItems', 'subtotal', 'delivery', 'total'));
-}
+        // Threshold subtotal agar dapat gratis ongkir (misal Rp 100000)
+        $threshold = 100000;
 
- public function update(Request $request, $itemId) {
-    $quantity = (int) $request->input('quantity', 1);
+        // Logika ongkir
+        if ($subtotal >= $threshold) {
+            $delivery = 0;
+        } else {
+            $delivery = $totalItems * $ongkir_per_item;
+        }
 
-    if ($quantity === 0) {
-        // Hapus item dari keranjang
-        Cart::where('id', $itemId)->delete();
-    } else {
-        // Update quantity biasa
-        Cart::where('id', $itemId)->update(['quantity' => $quantity]);
+        $total = $subtotal + $delivery;
+
+        return view('home.cart', compact('cartItems', 'subtotal', 'delivery', 'total'));
     }
 
-    return redirect()->back();
-}
+    public function update(Request $request, $itemId)
+    {
+        $quantity = (int) $request->input('quantity', 1);
 
+        if ($quantity === 0) {
+            // Hapus item dari keranjang
+            Cart::where('id', $itemId)->delete();
+        } else {
+            // Update quantity biasa
+            Cart::where('id', $itemId)->update(['quantity' => $quantity]);
+        }
+
+        return redirect()->back();
+    }
 
     public function remove($id)
     {

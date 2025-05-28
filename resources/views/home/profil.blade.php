@@ -143,19 +143,24 @@
                             <h3 class="mb-3 fw-semibold">{{ Auth::user()->name }}</h3>
 
                             <ul class="list-unstyled fs-6" style="color: #495057;">
-                                <li class="mb-2">
-                                    <i class="fa fa-envelope me-2 text-secondary"></i> 
-                                    <strong>Email:</strong> {{ Auth::user()->email }}
-                                </li>
-                                <li class="mb-2">
-                                    <i class="fa fa-info-circle me-2 text-secondary"></i> 
-                                    <strong>Bio:</strong> {{ Auth::user()->bio ?? 'Belum ada bio.' }}
-                                </li>
-                                <li class="mb-2">
-                                    <i class="fa fa-calendar-alt me-2 text-secondary"></i> 
-                                    <strong>Bergabung sejak:</strong> {{ Auth::user()->created_at->format('d M Y') }}
-                                </li>
-                            </ul>
+    <li class="mb-2">
+        <i class="fa fa-envelope me-2 text-secondary"></i> 
+        <strong>Email :</strong> {{ Auth::user()->email }}
+    </li>
+    <li class="mb-2">
+        <i class="fa fa-info-circle me-2 text-secondary"></i> 
+        <strong>Alamat :</strong> {{ Auth::user()->alamat ?? 'Belum ada alamat.' }}
+    </li>
+    <li class="mb-2">
+        <i class="fa fa-phone me-2 text-secondary"></i> 
+        <strong>No HP :</strong> {{ Auth::user()->no_hp ?? 'Belum ada nomor HP.' }}
+    </li>
+    <li class="mb-2">
+        <i class="fa fa-calendar-alt me-2 text-secondary"></i> 
+        <strong>Bergabung sejak :</strong> {{ Auth::user()->created_at->format('d M Y') }}
+    </li>
+</ul>
+
 
                             <a href="{{ route('home.edit') }}" class="btn amado-btn px-4 mt-3">Edit Profil</a>
                         </div>

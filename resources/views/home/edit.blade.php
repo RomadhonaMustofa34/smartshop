@@ -159,14 +159,28 @@
 
                                     <div class="col-md-8">
                                         <div class="mb-3">
-                                            <label for="name" class="form-label"><strong>Nama</strong></label>
-                                            <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}" required>
-                                        </div>
+    <label for="name" class="form-label"><strong>Nama</strong></label>
+    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}" required>
+</div>
 
-                                        <div class="mb-3">
-                                            <label for="bio" class="form-label"><strong>Bio</strong></label>
-                                            <textarea name="bio" id="bio" class="form-control" rows="3">{{ old('bio', $user->bio) }}</textarea>
-                                        </div>
+<div class="mb-3">
+    <label for="alamat" class="form-label"><strong>Alamat</strong></label>
+    <textarea name="alamat" id="alamat" class="form-control" rows="3">{{ old('alamat', $user->alamat) }}</textarea>
+</div>
+<div class="mb-3">
+    <label for="no_hp" class="form-label"><strong>No HP</strong></label>
+    <input 
+        type="number" 
+        name="no_hp" 
+        id="no_hp" 
+        class="form-control" 
+        value="{{ old('no_hp', $user->no_hp) }}" 
+        pattern="[0-9]+" 
+        title="Masukkan nomor tanpa spasi atau karakter lain" 
+        maxlength="15"
+    >
+</div>
+
 
                                         <div class="d-flex justify-content-end gap-2 mt-4">
                                             <button type="submit" class="btn amado-btn px-4 btn-save">Simpan Perubahan</button>
