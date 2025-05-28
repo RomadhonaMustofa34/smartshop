@@ -2,22 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <!-- Title  -->
+    <meta charset="UTF-8" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Amado - Furniture Ecommerce Template | Cart</title>
-
-    <!-- Favicon  -->
-    <link rel="icon" href="dist/img/core-img/favicon.ico">
-
-    <!-- Core Style CSS -->
-    <link rel="stylesheet" href="dist/css/core-style.css">
-    <link rel="stylesheet" href="dist/style.css">
-
+    <link rel="icon" href="dist/img/core-img/favicon.ico" />
+    <link rel="stylesheet" href="dist/css/core-style.css" />
+    <link rel="stylesheet" href="dist/style.css" />
 </head>
 
 <body>
@@ -31,8 +23,10 @@
                 <div class="col-12">
                     <div class="search-content">
                         <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="dist/img/core-img/search.png" alt=""></button>
+                            <input type="search" name="search" id="search" placeholder="Type your keyword..." />
+                            <button type="submit">
+                                <img src="dist/img/core-img/search.png" alt="Search" />
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -41,16 +35,14 @@
     </div>
     <!-- Search Wrapper Area End -->
 
-    <!-- ##### Main Content Wrapper Start ##### -->
+    <!-- Main Content Wrapper Start -->
     <div class="main-content-wrapper d-flex clearfix">
 
-        <!-- Mobile Nav (max width 767px)-->
+        <!-- Mobile Nav -->
         <div class="mobile-nav">
-            <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="index.html"><img src="dist/img/core-img/logo.png" alt=""></a>
+                <a href="{{ url('/') }}"><img src="dist/img/core-img/logo.png" alt="Logo" /></a>
             </div>
-            <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
                 <span></span><span></span><span></span>
             </div>
@@ -58,69 +50,58 @@
 
         <!-- Header Area Start -->
         <header class="header-area clearfix">
-            <!-- Close Icon -->
             <div class="nav-close">
                 <i class="fa fa-close" aria-hidden="true"></i>
             </div>
-            <!-- Logo -->
             <div class="logo">
-                <a href="index.html"><img src="dist/img/core-img/logo.png" alt=""></a>
+                <a href="{{ url('/') }}"><img src="dist/img/core-img/logo.png" alt="Logo" /></a>
             </div>
-            <!-- Amado Nav -->
-<nav class="amado-nav">
-    <ul>
-        @if(Auth::check())
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/profil" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="brand-text font-weight-bold">
-                        <b>{{ Auth::user()->name }}</b>
-                    </span>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                    <li>
-                        <form action="{{ route('logout') }}" method="POST" class="dropdown-item p-0">
-                            @csrf
-                            <button type="submit" class="btn btn-link dropdown-item">Logout</button>
-                        </form>
+            <nav class="amado-nav">
+                <ul>
+                    @auth
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="brand-text font-weight-bold"><b>{{ Auth::user()->name }}</b></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST" class="dropdown-item p-0">
+                                        @csrf
+                                        <button type="submit" class="btn btn-link dropdown-item">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @else
+                        <li><a href="{{ route('login') }}"><b>Guest (Login)</b></a></li>
+                    @endauth
+
+                    <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
+                        <a href="{{ route('home') }}">Home</a>
+                    </li>
+                    <li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
+                        <a href="{{ route('shop') }}">Shop</a>
+                    </li>
+                    <li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
+                        <a href="{{ route('checkout') }}">Checkout</a>
                     </li>
                 </ul>
-            </li>
-        @else
-            <li><a href="{{ route('login') }}"><b>Guest (Login)</b></a></li>
-        @endif
+            </nav>
 
-        <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
-    <a href="{{ route('home') }}">Home</a>
-</li>
-<li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
-    <a href="{{ route('shop') }}">Shop</a>
-</li>
-<li>
-    <!-- Link detail produk butuh id, jadi biasanya tidak di nav umum -->
-    <!-- Hapus atau ganti sesuai kebutuhan -->
-</li>
-<!-- <li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
-    <a href="{{ route('cart') }}">Cart</a>
-</li> -->
-<li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
-    <a href="{{ route('checkout') }}">Checkout</a>
-</li>
-    </ul>
-</nav>
-            <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-100">
                 <a href="#" class="btn amado-btn mb-15">%Discount%</a>
                 <a href="#" class="btn amado-btn active">New this week</a>
             </div>
-            <!-- Cart Menu -->
+
             <div class="cart-fav-search mb-100">
                 <a href="{{ route('cart') }}" class="cart-nav">
-    <img src="{{ asset('dist/img/core-img/cart.png') }}" alt=""> Cart <span>({{ $cartItemCount }})</span>
-</a>
-                <a href="#" class="fav-nav"><img src="dist/img/core-img/favorites.png" alt=""> Favourite</a>
-                <a href="#" class="search-nav"><img src="dist/img/core-img/search.png" alt=""> Search</a>
+                    <img src="{{ asset('dist/img/core-img/cart.png') }}" alt="Cart" />
+                    Cart <span>({{ $cartItemCount }})</span>
+                </a>
+                <a href="#" class="fav-nav"><img src="dist/img/core-img/favorites.png" alt="Favourite" /> Favourite</a>
+                <a href="#" class="search-nav"><img src="dist/img/core-img/search.png" alt="Search" /> Search</a>
             </div>
-            <!-- Social Button -->
+
             <div class="social-info d-flex justify-content-between">
                 <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
                 <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
@@ -133,6 +114,7 @@
         <div class="cart-table-area section-padding-100">
             <div class="container-fluid">
                 <div class="row">
+
                     <div class="col-12 col-lg-8">
                         <div class="cart-title mt-50">
                             <h2>Shopping Cart</h2>
@@ -141,160 +123,123 @@
                         <div class="cart-table clearfix">
                             <table class="table table-responsive">
                                 <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="cart_product_img">
-                                            <a href="#"><img src="dist/img/bg-img/cart1.jpg" alt="Product"></a>
-                                        </td>
-                                        <td class="cart_product_desc">
-                                            <h5>White Modern Chair</h5>
-                                        </td>
-                                        <td class="price">
-                                            <span>$130</span>
-                                        </td>
-                                        <td class="qty">
-                                            <div class="qty-btn d-flex">
-                                                <p>Qty</p>
-                                                <div class="quantity">
-                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
-                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cart_product_img">
-                                            <a href="#"><img src="dist/img/bg-img/cart2.jpg" alt="Product"></a>
-                                        </td>
-                                        <td class="cart_product_desc">
-                                            <h5>Minimal Plant Pot</h5>
-                                        </td>
-                                        <td class="price">
-                                            <span>$10</span>
-                                        </td>
-                                        <td class="qty">
-                                            <div class="qty-btn d-flex">
-                                                <p>Qty</p>
-                                                <div class="quantity">
-                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty2'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty2" step="1" min="1" max="300" name="quantity" value="1">
-                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty2'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cart_product_img">
-                                            <a href="#"><img src="dist/img/bg-img/cart3.jpg" alt="Product"></a>
-                                        </td>
-                                        <td class="cart_product_desc">
-                                            <h5>Minimal Plant Pot</h5>
-                                        </td>
-                                        <td class="price">
-                                            <span>$10</span>
-                                        </td>
-                                        <td class="qty">
-                                            <div class="qty-btn d-flex">
-                                                <p>Qty</p>
-                                                <div class="quantity">
-                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty3'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty3" step="1" min="1" max="300" name="quantity" value="1">
-                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty3'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+    </tr>
+</thead>
+<tbody>
+@forelse($cartItems as $item)
+<tr>
+    <td class="cart_product_img">
+        <a href="#"><img src="{{ asset('storage/' . $item->product->image) }}" alt="{{ $item->product->name }}" style="max-width: 100px;"></a>
+    </td>
+    <td class="cart_product_desc">
+        <h5>{{ $item->product->name }}</h5>
+    </td>
+    <td class="price">
+        <span>${{ number_format($item->product->price, 2) }}</span>
+    </td>
+    <td class="qty">
+        <form action="{{ route('cart.update', $item->id) }}" method="POST" class="d-flex align-items-center">
+            @csrf
+            <div class="qty-btn d-flex">
+                <button type="button" onclick="let qty = this.nextElementSibling; if(qty.value > 0) qty.value--; this.form.submit();" class="qty-minus">
+                    <i class="fa fa-minus" aria-hidden="true"></i>
+                </button>
+                <input type="number" name="quantity" value="{{ $item->quantity }}" min="0" class="qty-text" style="width: 50px; text-align: center;" onchange="this.form.submit()">
+                <button type="button" onclick="let qty = this.previousElementSibling; qty.value++; this.form.submit();" class="qty-plus">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </td>
+</tr>
+@empty
+<tr>
+    <td colspan="4">Keranjang kosong.</td>
+</tr>
+@endforelse
+</tbody>
+
                             </table>
                         </div>
                     </div>
+
                     <div class="col-12 col-lg-4">
                         <div class="cart-summary">
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
-                                <li><span>subtotal:</span> <span>$140.00</span></li>
-                                <li><span>delivery:</span> <span>Free</span></li>
-                                <li><span>total:</span> <span>$140.00</span></li>
+                                <li><span>Subtotal:</span> <span>Rp.{{ number_format($subtotal, 2) }}</span></li>
+                                <li><span>Delivery:</span> <span>{{ $delivery == 0 ? 'Free' : '$' . number_format($delivery, 2) }}</span></li>
+                                <li><span>Total:</span> <span>Rp.{{ number_format($total, 2) }}</span></li>
                             </ul>
+
                             <div class="cart-btn mt-100">
                                 <a href="{{ route('checkout') }}" class="btn amado-btn w-100">Checkout</a>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-    <!-- ##### Main Content Wrapper End ##### -->
+    <!-- Main Content Wrapper End -->
 
-    <!-- ##### Newsletter Area Start ##### -->
+    <!-- Newsletter Area Start -->
     <section class="newsletter-area section-padding-100-0">
         <div class="container">
             <div class="row align-items-center">
-                <!-- Newsletter Text -->
                 <div class="col-12 col-lg-6 col-xl-7">
                     <div class="newsletter-text mb-100">
                         <h2>Subscribe for a <span>25% Discount</span></h2>
                         <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur. Donec auctor interdum purus, ac finibus massa bibendum nec.</p>
                     </div>
                 </div>
-                <!-- Newsletter Form -->
                 <div class="col-12 col-lg-6 col-xl-5">
                     <div class="newsletter-form mb-100">
                         <form action="#" method="post">
-                            <input type="email" name="email" class="nl-email" placeholder="Your E-mail">
-                            <input type="submit" value="Subscribe">
+                            <input type="email" name="email" class="nl-email" placeholder="Your E-mail" />
+                            <input type="submit" value="Subscribe" />
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- ##### Newsletter Area End ##### -->
+    <!-- Newsletter Area End -->
 
-    <!-- ##### Footer Area Start ##### -->
+    <!-- Footer Area Start -->
     <footer class="footer_area clearfix">
         <div class="container">
             <div class="row align-items-center">
-                <!-- Single Widget Area -->
                 <div class="col-12 col-lg-4">
                     <div class="single_widget_area">
-                        <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="index.html"><img src="dist/img/core-img/logo2.png" alt=""></a>
+                            <a href="{{ url('/') }}"><img src="dist/img/core-img/logo2.png" alt="Footer Logo" /></a>
                         </div>
-                        <!-- Copywrite Text -->
-                        <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->& Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
-</p>
+                        <p class="copywrite">
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with
+                            <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                            <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer">Colorlib</a> & Re-distributed by
+                            <a href="https://themewagon.com/" target="_blank" rel="noopener noreferrer">Themewagon</a>
+                        </p>
                     </div>
                 </div>
-                
             </div>
         </div>
     </footer>
-    <!-- ##### Footer Area End ##### -->
+    <!-- Footer Area End -->
 
-    <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
+    <!-- Scripts -->
     <script src="dist/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
     <script src="dist/js/popper.min.js"></script>
-    <!-- Bootstrap js -->
     <script src="dist/js/bootstrap.min.js"></script>
-    <!-- Plugins js -->
     <script src="dist/js/plugins.js"></script>
-    <!-- Active js -->
     <script src="dist/js/active.js"></script>
-
 </body>
 
 </html>

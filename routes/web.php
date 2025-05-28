@@ -30,11 +30,15 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/productdetails', [ProductdetailsController::class, 'index'])->name('productdetails.index');
 Route::get('/product/{id}', [ProductdetailsController::class, 'show'])->name('productdetails.show');
 
-Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
+
 
 
 // Halaman keranjang (cart)
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
+Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
 
 // Halaman checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');

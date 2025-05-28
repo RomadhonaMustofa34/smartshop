@@ -39,10 +39,46 @@ public function add(Request $request)
 
 
 
-    // Contoh method index untuk lihat isi keranjang
     public function index()
-    {
-        $cart = session()->get('cart', []);
-        return view('home.cart', compact('cart'));
+{
+    $cartItems = Cart::with('product') // eager load relasi produk
+        ->where('user_id', Auth::id())
+        ->get();
+
+    $subtotal = $cartItems->sum(function ($item) {
+        return $item->product->price * $item->quantity;
+    });
+
+    // Logika ongkir
+    $delivery = ($subtotal >= 100) ? 0 : 10;
+
+    $total = $subtotal + $delivery;
+
+    return view('home.cart', compact('cartItems', 'subtotal', 'delivery', 'total'));
+}
+
+ public function update(Request $request, $itemId) {
+    $quantity = (int) $request->input('quantity', 1);
+
+    if ($quantity === 0) {
+        // Hapus item dari keranjang
+        Cart::where('id', $itemId)->delete();
+    } else {
+        // Update quantity biasa
+        Cart::where('id', $itemId)->update(['quantity' => $quantity]);
     }
+
+    return redirect()->back();
+}
+
+
+    public function remove($id)
+    {
+        $cartItem = Cart::where('user_id', Auth::id())->where('id', $id)->firstOrFail();
+        $cartItem->delete();
+
+        return redirect()->route('cart')->with('success', 'Item removed from cart.');
+    }
+
+
 }
