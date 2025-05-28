@@ -8,7 +8,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="/feed" class="nav-link">
+      <a href="/admincheckout" class="nav-link">
         <i class="nav-icon fas fa-money-bill"></i>
         <p class="text-light">Checkout</p>
       </a>

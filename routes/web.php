@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductdetailsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AdmincheckoutController;
 
 /*
 |----------------------------------------------------------------------
@@ -42,6 +43,8 @@ Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.
 
 // Halaman checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout/submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
+
 
 
 // Routes untuk login dan register
@@ -64,6 +67,9 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/produk/{id}/edit', [ProductController::class, 'edit'])->name('produk.edit');
     Route::put('/produk/{id}', [ProductController::class, 'update'])->name('produk.update');
     Route::delete('/produk/{id}', [ProductController::class, 'destroy'])->name('produk.destroy');
+
+    //checkout
+    Route::get('/admincheckout', [AdmincheckoutController::class, 'index'])->name('admincheckout');
 
         // Feed Routes
     Route::get('/feed', [FeedController::class, 'index'])->name('feed.index');

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Checkout;
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
@@ -35,6 +37,43 @@ class CheckoutController extends Controller
         $total = $subtotal + $delivery;
 
         return view('home.checkout', compact('cartItems', 'subtotal', 'delivery', 'total'));
+    }
+
+    public function submit(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'no_hp' => 'required|string|max:20',
+            'payment_method' => 'required|string',
+        ]);
+
+        $userId = Auth::id();
+
+        // Ambil data cart user dari database
+        $cartItems = Cart::where('user_id', $userId)->get();
+
+        if ($cartItems->isEmpty()) {
+            return back()->withErrors('Keranjang belanja kosong.');
+        }
+
+        // Simpan tiap item cart ke tabel checkout
+        foreach ($cartItems as $item) {
+            Checkout::create([
+                'user_id' => $userId,
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'no_hp' => $request->no_hp,
+                'payment_method' => $request->payment_method,
+                'product_id' => $item->product_id,
+                'quantity' => $item->quantity,
+            ]);
+        }
+
+        // Hapus cart user setelah checkout berhasil
+        Cart::where('user_id', $userId)->delete();
+
+        return redirect()->route('checkout')->with('success', 'Pesanan berhasil dibuat!');
     }
 
 

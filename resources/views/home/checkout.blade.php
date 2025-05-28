@@ -95,10 +95,7 @@
 <li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
     <a href="{{ route('shop') }}">Shop</a>
 </li>
-<li>
-    <!-- Link detail produk butuh id, jadi biasanya tidak di nav umum -->
-    <!-- Hapus atau ganti sesuai kebutuhan -->
-</li>
+
 <!-- <li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
     <a href="{{ route('cart') }}">Cart</a>
 </li> -->
@@ -130,107 +127,102 @@
         </header>
         <!-- Header Area End -->
 
-        <div class="cart-table-area section-padding-100">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 col-lg-8">
-                        <div class="checkout_details_area mt-50 clearfix">
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        <div class="row">
+            <form action="{{ route('checkout.submit') }}" method="POST" class="row w-100">
+                @csrf
+                
+                <div class="col-12 col-lg-8">
+                    <div class="checkout_details_area mt-50 clearfix">
 
-                            <div class="cart-title">
-                                <h2>Checkout</h2>
+                        <div class="cart-title">
+                            <h2>Checkout</h2>
+                        </div>
+
+                        <!-- Checkbox untuk memilih memesan untuk siapa -->
+                        <div class="col-12 mb-3 px-0">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="isi_dari_profil" onclick="isiDariProfil()">
+                                <label class="form-check-label" for="isi_dari_profil">
+                                    Pesan untuk diri sendiri (gunakan data dari profil)
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Input Nama -->
+                        <div class="col-12 mb-3 px-0">
+                            <label for="nama" class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" required>
+                        </div>
+
+                        <!-- Input Alamat -->
+                        <div class="col-12 mb-3 px-0">
+                            <label for="alamat" class="form-label">Alamat Lengkap</label>
+                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat Lengkap" required>
+                        </div>
+
+                        <!-- Input No HP -->
+                        <div class="col-12 mb-3 px-0">
+                            <label for="no_hp" class="form-label">Nomor HP</label>
+                            <input type="tel" class="form-control" id="no_hp" name="no_hp" placeholder="Nomor HP" required>
+                        </div>
+
+                        <!-- Hilangkan payment method di sini untuk hindari duplikat -->
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="cart-summary">
+                        <h5>Cart Total</h5>
+                        <ul class="summary-table">
+                            <li><span>Subtotal:</span> <span>Rp.{{ number_format($subtotal, 2) }}</span></li>
+                            <li><span>Delivery:</span> <span>{{ $delivery == 0 ? 'Free' : 'Rp.' . number_format($delivery, 2) }}</span></li>
+                            <li><span>Total:</span> <span>Rp.{{ number_format($total, 2) }}</span></li>
+                        </ul>
+
+                        <!-- Payment Method (hanya 1 tempat supaya tidak duplikat) -->
+                        <div class="payment-method mt-4">
+                            <div class="custom-control custom-radio mr-sm-2">
+                                <input type="radio" class="custom-control-input" id="cod" name="payment_method" value="cod" checked>
+                                <label class="custom-control-label" for="cod">Cash on Delivery</label>
                             </div>
 
-                            <form action="#" method="post">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <input type="text" class="form-control" id="first_name" value="" placeholder="First Name" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <input type="text" class="form-control" id="last_name" value="" placeholder="Last Name" required>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <input type="text" class="form-control" id="company" placeholder="Company Name" value="">
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <input type="email" class="form-control" id="email" placeholder="Email" value="">
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <select class="w-100" id="country">
-                                        <option value="usa">United States</option>
-                                        <option value="uk">United Kingdom</option>
-                                        <option value="ger">Germany</option>
-                                        <option value="fra">France</option>
-                                        <option value="ind">Indonesia</option>
-                                        <option value="aus">Australia</option>
-                                        <option value="bra">Brazil</option>
-                                        <option value="cana">Canada</option>
-                                    </select>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <input type="text" class="form-control mb-3" id="street_address" placeholder="Address" value="">
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <input type="text" class="form-control" id="city" placeholder="Town" value="">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <input type="text" class="form-control" id="zipCode" placeholder="Zip Code" value="">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <input type="number" class="form-control" id="phone_number" min="0" placeholder="Phone No" value="">
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <textarea name="comment" class="form-control w-100" id="comment" cols="30" rows="10" placeholder="Leave a comment about your order"></textarea>
-                                    </div>
+                            <div class="custom-control custom-radio mr-sm-2 mt-2">
+                                <input type="radio" class="custom-control-input" id="qris" name="payment_method" value="qris">
+                                <label class="custom-control-label" for="qris">
+                                    Qris
+                                    <img class="ml-2" src="dist/img/core-img/qris.png" alt="Qris" style="height: 20px;">
+                                </label>
+                            </div>
+                        </div>
 
-                                    <div class="col-12">
-                                        <div class="custom-control custom-checkbox d-block mb-2">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                            <label class="custom-control-label" for="customCheck2">Create an accout</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox d-block">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                            <label class="custom-control-label" for="customCheck3">Ship to a different address</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                        <!-- Tombol submit untuk checkout -->
+                        <div class="cart-btn mt-4">
+                            <button type="submit" class="btn amado-btn w-100">Checkout</button>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-4">
-    <div class="cart-summary">
-        <h5>Cart Total</h5>
-        <ul class="summary-table">
-            <li><span>Subtotal:</span> <span>Rp.{{ number_format($subtotal, 2) }}</span></li>
-            <li><span>Delivery:</span> <span>{{ $delivery == 0 ? 'Free' : 'Rp.' . number_format($delivery, 2) }}</span></li>
-            <li><span>Total:</span> <span>Rp.{{ number_format($total, 2) }}</span></li>
-        </ul>
-
-        <div class="payment-method mt-4">
-            <!-- Cash on delivery -->
-            <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" class="custom-control-input" id="cod" checked>
-                <label class="custom-control-label" for="cod">Cash on Delivery</label>
-            </div>
-            <!-- Paypal -->
-            <div class="custom-control custom-checkbox mr-sm-2 mt-2">
-                <input type="checkbox" class="custom-control-input" id="paypal">
-                <label class="custom-control-label" for="paypal">Paypal 
-                    <img class="ml-2" src="dist/img/core-img/paypal.png" alt="Paypal" style="height: 20px;">
-                </label>
-            </div>
-        </div>
-
-        <div class="cart-btn mt-4">
-            <a href="{{ route('checkout') }}" class="btn amado-btn w-100">Checkout</a>
+                </div>
+            </form> <!-- Tutup form di sini -->
         </div>
     </div>
 </div>
 
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### Main Content Wrapper End ##### -->
+<script>
+    function isiDariProfil() {
+        const checkbox = document.getElementById('isi_dari_profil');
+        if (checkbox.checked) {
+            document.getElementById('nama').value = @json(Auth::user()->name);
+            document.getElementById('alamat').value = @json(Auth::user()->alamat ?? '');
+            document.getElementById('no_hp').value = @json(Auth::user()->no_hp ?? '');
+        } else {
+            document.getElementById('nama').value = '';
+            document.getElementById('alamat').value = '';
+            document.getElementById('no_hp').value = '';
+        }
+    }
+</script>
+
 
     <!-- ##### Newsletter Area Start ##### -->
     <section class="newsletter-area section-padding-100-0">
