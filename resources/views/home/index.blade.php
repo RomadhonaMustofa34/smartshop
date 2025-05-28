@@ -102,9 +102,9 @@
 <!-- <li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
     <a href="{{ route('cart') }}">Cart</a>
 </li> -->
-<li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
+<!-- <li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
     <a href="{{ route('checkout') }}">Checkout</a>
-</li>
+</li> -->
 
     </ul>
 </nav>

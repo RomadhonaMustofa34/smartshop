@@ -40,7 +40,7 @@
         <!-- Mobile Nav -->
         <div class="mobile-nav">
             <div class="amado-navbar-brand">
-                <a href="index.html"><img src="dist/img/core-img/logo.png" alt=""></a>
+                <a href="{{ url('/') }}"><img src="dist/img/core-img/logo.png" alt=""></a>
             </div>
             <div class="amado-navbar-toggler">
                 <span></span><span></span><span></span>
@@ -53,7 +53,7 @@
                 <i class="fa fa-close" aria-hidden="true"></i>
             </div>
             <div class="logo">
-                <a href="index.html"><img src="dist/img/core-img/logo.png" alt=""></a>
+                <a href="{{ url('/') }}"><img src="dist/img/core-img/logo.png" alt=""></a>
             </div>
             <nav class="amado-nav">
                 <ul>
@@ -88,9 +88,9 @@
 <!-- <li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
     <a href="{{ route('cart') }}">Cart</a>
 </li> -->
-<li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
+<!-- <li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
     <a href="{{ route('checkout') }}">Checkout</a>
-</li>
+</li> -->
                 </ul>
             </nav>
 

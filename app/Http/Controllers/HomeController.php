@@ -62,9 +62,9 @@ class HomeController extends Controller
         $user->no_hp = preg_replace('/\D/', '', $request->no_hp ?? '');
 
         if ($user->save()) {
-            return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');
+            return redirect()->route('home.show')->with('success', 'Profil berhasil diperbarui.');
         }
 
-        return redirect()->route('profile.edit')->withErrors(['error' => 'Gagal memperbarui profil.']);
+        return redirect()->route('home.edit')->withErrors(['error' => 'Gagal memperbarui profil.']);
     }
 }

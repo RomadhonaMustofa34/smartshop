@@ -98,15 +98,5 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 
 
 
-//     //behome admin
-
-// Route::get('/produk', [ProductController::class, 'index'])->name('produk.index');
-// Route::post('/produk', [ProductController::class, 'store'])->name('produk.store');
-// Route::get('/produk/{id}/edit', [ProductController::class, 'edit'])->name('produk.edit');
-// Route::put('/produk/{id}', [ProductController::class, 'update'])->name('produk.update');
-// Route::delete('/produk/{id}', [ProductController::class, 'destroy'])->name('produk.destroy');
-
-    
-
 
 

@@ -82,9 +82,9 @@
                     <li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
                         <a href="{{ route('shop') }}">Shop</a>
                     </li>
-                    <li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
+                    <!-- <li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
                         <a href="{{ route('checkout') }}">Checkout</a>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
 
