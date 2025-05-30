@@ -26,13 +26,14 @@
                                 <th>Qty</th>
                                 <th>Total</th>
                                 <th>Waktu</th>
+                                <th>Proses</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($checkouts as $checkout)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $checkout->nama }}</td>
+                                    <td style="text-align: left;">{{ $checkout->nama }}</td>
                                     <td>{{ $checkout->alamat }}</td>
                                     <td>{{ $checkout->no_hp }}</td>
                                     <td>
@@ -47,7 +48,39 @@
                                             -
                                         @endif
                                     </td>
-                                    <td>{{ $checkout->created_at->format('d-m-Y H:i') }}</td>
+                                    <td>{{ $checkout->created_at->format('d-m-Y') }}</td>
+                                    <td>
+    @php
+    $statusClass = '';
+    $statusClass = match ($checkout->status) {
+    'diproses'   => 'bg-info text-white',
+    'dikemas'    => 'bg-warning text-dark',
+    'dikirim'    => 'bg-primary text-white',
+    'selesai'    => 'bg-success text-white',
+    'return'     => 'bg-warning text-white',
+    'ditolak'    => 'bg-danger text-white',
+    'dibatalkan' => 'bg-secondary text-white',
+    default      => 'bg-light text-dark',
+};
+@endphp
+
+<form action="{{ route('admincheckout.updateStatus', $checkout->id) }}" method="POST">
+    @csrf
+    @method('PUT')
+    <select name="status" class="form-select form-select-sm {{ $statusClass }}" onchange="this.form.submit()">
+    <option value="diproses" {{ $checkout->status == 'diproses' ? 'selected' : '' }}>Diproses</option>
+    <option value="dikemas" {{ $checkout->status == 'dikemas' ? 'selected' : '' }}>Dikemas</option>
+    <option value="dikirim" {{ $checkout->status == 'dikirim' ? 'selected' : '' }}>Dikirim</option>
+    <option value="selesai" {{ $checkout->status == 'selesai' ? 'selected' : '' }}>Selesai</option>
+    <option value="return" {{ $checkout->status == 'return' ? 'selected' : '' }}>Return</option>
+    <option value="ditolak" {{ $checkout->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+    <option value="dibatalkan" {{ $checkout->status == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
+</select>
+
+</form>
+
+</td>
+
                                 </tr>
                             @endforeach
                         </tbody>

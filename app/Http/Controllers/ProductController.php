@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
@@ -9,11 +10,19 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     // Tampilkan daftar produk
-    public function index()
-    {
+   public function index()
+{
+    // Cek apakah user sudah login
+    if (Auth::check()) {
+        // Jika sudah login, ambil data produk lalu tampilkan halaman produk
         $products = Product::latest()->get();
         return view('produk.index', compact('products'));
     }
+
+    // Jika tidak login, redirect ke halaman login dengan pesan error
+    return redirect()->route('login')->with('error', 'You need to login first.');
+}
+
 
     // Simpan produk baru
    public function store(Request $request)

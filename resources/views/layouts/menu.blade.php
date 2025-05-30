@@ -13,15 +13,14 @@
         <p class="text-light">Checkout</p>
       </a>
     </li>
-    <br><br>
     <li class="nav-item">
-      <a href="/feed" class="nav-link">
+      <a href="#" class="nav-link">
         <i class="nav-icon fas fa-dashboard"></i>
         <p class="text-light">Beranda</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="/archive" class="nav-link">
+      <a href="#" class="nav-link">
         <i class="nav-icon fas fa-book"></i>
         <p class="text-light">Archive Page</p>
       </a>

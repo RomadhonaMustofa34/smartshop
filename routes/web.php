@@ -2,10 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfilController;
-use App\Http\Controllers\FeedController;
-use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ProductdetailsController;
@@ -13,6 +10,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdmincheckoutController;
+use App\Http\Controllers\PesananController;
 
 /*
 |----------------------------------------------------------------------
@@ -31,7 +29,8 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/productdetails', [ProductdetailsController::class, 'index'])->name('productdetails.index');
 Route::get('/product/{id}', [ProductdetailsController::class, 'show'])->name('productdetails.show');
 
-
+//pesanan
+Route::get('/pesanan', [PesananController::class, 'index'])->middleware('auth')->name('pesanan');
 
 
 // Halaman keranjang (cart)
@@ -42,7 +41,7 @@ Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.
 
 
 // Halaman checkout
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::get('/checkout', [CheckoutController::class, 'index'])->middleware('auth')->name('checkout');
 Route::post('/checkout/submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
 
 
@@ -58,8 +57,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Group route yang memerlukan otentikasi
 // Group route hanya untuk admin
 Route::middleware(['auth', 'is_admin'])->group(function () {
-    // Dashboard (admin only)
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Produk (admin only)
     Route::get('/produk', [ProductController::class, 'index'])->name('produk.index');
@@ -70,26 +67,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 
     //checkout
     Route::get('/admincheckout', [AdmincheckoutController::class, 'index'])->name('admincheckout');
-
-        // Feed Routes
-    Route::get('/feed', [FeedController::class, 'index'])->name('feed.index');
-    Route::get('/feed/create', [FeedController::class, 'create'])->name('feed.create');
-    Route::post('/feed/upload', [FeedController::class, 'upload'])->name('feed.upload');
-    Route::get('/feed/{id}/edit', [FeedController::class, 'edit'])->name('feed.edit');
-    Route::put('/feed/{id}', [FeedController::class, 'update'])->name('feed.update');
-    Route::delete('/feed/{id}', [FeedController::class, 'destroy'])->name('feed.destroy');
-    Route::post('/feeds/{id}/like', [FeedController::class, 'like'])->name('feed.like');
-
-    Route::get('/feed/{id}/comments', [FeedController::class, 'showComments'])->name('feed.comments');
-    Route::post('/feed/{id}/comments', [FeedController::class, 'storeComment'])->name('feed.storeComment');
-    
-    
-    // Archive Routes
-    Route::get('/archive', [ArchiveController::class, 'index'])->name('archive.index');
-    Route::get('/archive/download', [ArchiveController::class, 'download'])->name('archive.download');
-
-        // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::put('/admincheckout/{id}/status', [AdmincheckoutController::class, 'updateStatus'])->name('admincheckout.updateStatus');
     
     // Profil
     Route::get('/profile', [ProfilController::class, 'show'])->name('profile.show');

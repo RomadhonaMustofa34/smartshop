@@ -11,6 +11,55 @@
     <link rel="icon" href="{{ asset('dist/img/core-img/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/core-style.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/style.css') }}">
+
+    <style>
+        /* Custom tambahan agar form lebih modern */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #007bff;
+            box-shadow: 0 4px 8px rgb(0 123 255 / 0.25);
+            transition: transform 0.3s ease;
+        }
+        .profile-pic:hover {
+            transform: scale(1.05);
+        }
+        .form-label strong {
+            font-weight: 600;
+            color: #333;
+        }
+        .btn-save {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-save:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            color: white;
+            text-decoration: none;
+        }
+        .card {
+            border-radius: 12px;
+        }
+        /* Responsive textarea */
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+    </style>
 </head>
 
 <body>
@@ -60,7 +109,7 @@
                 <ul>
                     @auth
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="/profil" id="userDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <strong>{{ Auth::user()->name }}</strong>
                             </a>
@@ -83,9 +132,8 @@
 <li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
     <a href="{{ route('shop') }}">Shop</a>
 </li>
-<li>
-    <!-- Link detail produk butuh id, jadi biasanya tidak di nav umum -->
-    <!-- Hapus atau ganti sesuai kebutuhan -->
+<li class="{{ request()->routeIs('pesanan') ? 'active' : '' }}">
+    <a href="{{ route('pesanan') }}">Order</a>
 </li>
 <!-- <li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
     <a href="{{ route('cart') }}">Cart</a>
@@ -118,73 +166,65 @@
         </header>
         <!-- Header Area End -->
 
-        <!-- ##### Edit Profil Start ##### -->
-        <div class="cart-table-area section-padding-100">
-            <div class="container-fluid">
+        <!-- Edit Profil -->
+        <div class="cart-table-area section-padding-100 flex-grow-1">
+            <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-12 col-lg-10">
-                        <div class="cart-title mt-50">
-                            <h2>Edit Profil Pengguna</h2>
+                    <div class="col-12 col-lg-8">
+                        <div class="cart-title mt-5 mb-4 text-center">
+                            <h2 class="fw-bold">Edit Profil Pengguna</h2>
+                            <p class="text-muted">Perbarui informasi akun Anda dengan mudah dan cepat.</p>
                         </div>
 
-                        <div class="card p-4 shadow-sm" style="background-color: #f8f9fa; border-radius: 10px;">
+                        <div class="card shadow-sm p-4">
                             <form action="{{ route('home.update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
                                 @if (session('success'))
-                                    <div class="alert alert-success">{{ session('success') }}</div>
+                                <div class="alert alert-success">{{ session('success') }}</div>
                                 @endif
                                 @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul class="mb-0">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+                                <div class="alert alert-danger">
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                                 @endif
 
                                 <div class="row align-items-center">
                                     <div class="col-md-4 text-center mb-4 mb-md-0">
                                         <img src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : 'https://via.placeholder.com/150' }}"
-                                             class="rounded-circle mb-2"
-                                             style="width: 150px; height: 150px; object-fit: cover;"
-                                             alt="Foto Profil">
-                                        <div class="mt-2">
-                                            <label for="profile_picture" class="form-label">Ubah Foto Profil</label>
-                                            <input type="file" name="profile_picture" id="profile_picture" class="form-control">
-                                        </div>
+                                            alt="Foto Profil" class="profile-pic mb-3" />
+
+                                        <label for="profile_picture" class="form-label btn btn-outline-primary btn-sm w-100">
+                                            Ubah Foto Profil
+                                        </label>
+                                        <input type="file" name="profile_picture" id="profile_picture" class="form-control d-none" />
                                     </div>
 
                                     <div class="col-md-8">
                                         <div class="mb-3">
-    <label for="name" class="form-label"><strong>Nama</strong></label>
-    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}" required>
-</div>
+                                            <label for="name" class="form-label"><strong>Nama Lengkap</strong></label>
+                                            <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}" required />
+                                        </div>
 
-<div class="mb-3">
-    <label for="alamat" class="form-label"><strong>Alamat</strong></label>
-    <textarea name="alamat" id="alamat" class="form-control" rows="3">{{ old('alamat', $user->alamat) }}</textarea>
-</div>
-<div class="mb-3">
-    <label for="no_hp" class="form-label"><strong>No HP</strong></label>
-    <input 
-        type="number" 
-        name="no_hp" 
-        id="no_hp" 
-        class="form-control" 
-        value="{{ old('no_hp', $user->no_hp) }}" 
-        pattern="[0-9]+" 
-        title="Masukkan nomor tanpa spasi atau karakter lain" 
-        maxlength="15"
-    >
-</div>
+                                        <div class="mb-3">
+                                            <label for="alamat" class="form-label"><strong>Alamat</strong></label>
+                                            <textarea placeholder="Masukkan alamat lengkap anda" name="alamat" id="alamat" class="form-control">{{ old('alamat', $user->alamat) }}</textarea>
+                                        </div>
 
+                                        <div class="mb-3">
+                                            <label for="no_hp" class="form-label"><strong>No HP</strong></label>
+                                            <input placeholder="Masukkan no hp anda" type="tel" name="no_hp" id="no_hp" class="form-control" value="{{ old('no_hp', $user->no_hp) }}"
+                                                pattern="[0-9]+" title="Masukkan nomor tanpa spasi atau karakter lain" maxlength="15" />
+                                        </div>
 
                                         <div class="d-flex justify-content-end gap-2 mt-4">
-                                            <button type="submit" class="btn amado-btn px-4 btn-save">Simpan Perubahan</button>
-                                            <a href="{{ url()->previous() }}" class="btn amado-btn px-4 btn-cancel">Batal</a>
+                                            <button type="submit" class="btn btn-save px-4">Simpan Perubahan</button>
+                                            <a href="{{ url()->previous() }}" class="btn btn-cancel px-4">Batal</a>
                                         </div>
                                     </div>
                                 </div>
@@ -195,7 +235,7 @@
                 </div>
             </div>
         </div>
-        <!-- ##### Edit Profil End ##### -->
+        <!-- Edit Profil End -->
 
     </div>
     <!-- ##### Main Content Wrapper End ##### -->

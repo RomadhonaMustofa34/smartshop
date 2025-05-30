@@ -19,4 +19,19 @@ class AdmincheckoutController extends Controller
 
         return view('admincheckout.index', compact('checkouts', 'totalKeseluruhan'));
     }
+
+    public function updateStatus(Request $request, $id)
+{
+    $request->validate([
+        'status' => 'required|in:diproses,dikemas,dikirim,selesai,return,ditolak,dibatalkan',
+    ]);
+
+    $checkout = Checkout::findOrFail($id);
+    $checkout->status = $request->status;
+    $checkout->save();
+
+    return redirect()->back()->with('success', 'Status berhasil diperbarui.');
+}
+
+
 }

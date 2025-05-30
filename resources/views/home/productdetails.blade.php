@@ -95,10 +95,9 @@
                     <li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
                         <a href="{{ route('shop') }}">Shop</a>
                     </li>
-                    
-                    <!-- <li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
-                        <a href="{{ route('cart') }}">Cart</a>
-                    </li> -->
+                    <li class="{{ request()->routeIs('pesanan') ? 'active' : '' }}">
+                        <a href="{{ route('pesanan') }}">Order</a>
+                    </li>
                     <!-- <li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
                         <a href="{{ route('checkout') }}">Checkout</a>
                     </li> -->
@@ -133,93 +132,117 @@
         <!-- Header Area End -->
 
         <!-- Product Details Area Start -->
-        <div class="single-product-area section-padding-100 clearfix">
-            <div class="container-fluid">
+<div class="single-product-area section-padding-100 clearfix">
+    <div class="container-fluid">
 
-                <div class="row">
-                    <div class="col-12">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb mt-50">
-                                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('shop') }}">Shop</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ $product->name ?? 'Detail Produk' }}</li>
-                            </ol>
-                        </nav>
-                    </div>
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mt-50">
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('shop') }}">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ $product->name ?? 'Detail Produk' }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        {{-- Pesan sukses tambah ke keranjang --}}
+        @if(session('success'))
+            <div class="alert alert-success text-center">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <div class="row">
+            <div class="col-12 col-lg-7">
+                <div class="single_product_thumb">
+                    <img class="d-block w-100" src="{{ asset('storage/' . ($product->image ?? 'default.png')) }}" alt="{{ $product->name ?? 'Product Image' }}">
                 </div>
+            </div>
 
-                {{-- Pesan sukses tambah ke keranjang --}}
-                @if(session('success'))
-                    <div class="alert alert-success text-center">
-                        {{ session('success') }}
-                    </div>
-                @endif
+            <div class="col-12 col-lg-5">
+                <div class="single_product_desc">
+                    <!-- Product Meta Data -->
+                    <div class="product-meta-data">
+                        <div class="line"></div>
+                        <p class="product-price">Rp.{{ number_format($product->price ?? 0, 0, ',', '.') }}</p>
+                        <h6>{{ $product->name ?? 'Nama Produk' }}</h6>
 
-                <div class="row">
-                    <div class="col-12 col-lg-7">
-                        <div class="single_product_thumb">
-                            <img class="d-block w-100" src="{{ asset('storage/' . ($product->image ?? 'default.png')) }}" alt="{{ $product->name ?? 'Product Image' }}">
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-lg-5">
-                        <div class="single_product_desc">
-                            <!-- Product Meta Data -->
-                            <div class="product-meta-data">
-                                <div class="line"></div>
-                                <p class="product-price">Rp.{{ number_format($product->price ?? 0, 0, ',', '.') }}</p>
-                                <h6>{{ $product->name ?? 'Nama Produk' }}</h6>
-
-                                <!-- Ratings & Review -->
-                                <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
-                                    <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="review">
-                                        <a href="#">Write A Review</a>
-                                    </div>
-                                </div>
-
-                                <!-- Availability -->
-                                <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
+                        <!-- Ratings & Review -->
+                        <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
+                            <div class="ratings">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
                             </div>
-
-                            <!-- Product Description -->
-                            <div class="short_overview my-5">
-                                <p>{{ $product->description ?? 'Tidak ada deskripsi produk.' }}</p>
+                            <div class="review">
+                                <a href="#">Write A Review</a>
                             </div>
-
-                            <!-- Add to Cart Form -->
-                            <form action="{{ route('cart.add') }}" method="POST" class="cart clearfix">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id ?? '' }}">
-
-                                <div class="cart-btn d-flex mb-50">
-                                    <p>Qty</p>
-                                    <div class="quantity">
-                                        <span class="qty-minus" onclick="var qtyInput = document.getElementById('qty'); if(qtyInput.value > 1) qtyInput.value--; return false;">
-                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
-                                        </span>
-                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
-                                        <span class="qty-plus" onclick="var qtyInput = document.getElementById('qty'); qtyInput.value++; return false;">
-                                            <i class="fa fa-caret-up" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="btn amado-btn">Add to cart</button>
-                            </form>
-
                         </div>
+
+                        <!-- Availability -->
+                        <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
                     </div>
+
+                    <!-- Product Description dengan fitur baca selengkapnya -->
+                    <div class="short_overview my-5">
+                        @php
+                            $desc = $product->description ?? 'Tidak ada deskripsi produk.';
+                            $limit = 200; // batas karakter yang ditampilkan
+                            $shortDesc = strlen($desc) > $limit ? substr($desc, 0, $limit) . '...' : $desc;
+                        @endphp
+
+                        <p id="desc-short">{!! nl2br(e($shortDesc)) !!}</p>
+                        @if(strlen($desc) > $limit)
+                            <p id="desc-full" style="display:none;">{!! nl2br(e($desc)) !!}</p>
+                            <button id="readMoreBtn" class="btn btn-link p-0">Baca Selengkapnya</button>
+                        @endif
+                    </div>
+
+                    <!-- Add to Cart Form -->
+                    <form action="{{ route('cart.add') }}" method="POST" class="cart clearfix">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id ?? '' }}">
+
+                        <div class="cart-btn d-flex mb-50">
+                            <p>Qty</p>
+                            <div class="quantity">
+                                <span class="qty-minus" onclick="var qtyInput = document.getElementById('qty'); if(qtyInput.value > 1) qtyInput.value--; return false;">
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                </span>
+                                <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
+                                <span class="qty-plus" onclick="var qtyInput = document.getElementById('qty'); qtyInput.value++; return false;">
+                                    <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn amado-btn">Add to cart</button>
+                    </form>
+
                 </div>
             </div>
         </div>
-        <!-- Product Details Area End -->
+    </div>
+</div>
+<!-- Product Details Area End -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const btn = document.getElementById('readMoreBtn');
+        if (btn) {
+            btn.addEventListener('click', function () {
+                document.getElementById('desc-short').style.display = 'none';
+                document.getElementById('desc-full').style.display = 'block';
+                btn.style.display = 'none';
+            });
+        }
+    });
+</script>
+
 
     </div>
     <!-- ##### Main Content Wrapper End ##### -->

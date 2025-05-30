@@ -48,20 +48,21 @@
                 <!-- Nama -->
                 <div class="mb-3">
                     <label for="name" class="form-label"><strong>Nama</strong></label>
-                    <input type="text" name="name" id="name" class="form-control" 
+                    <input placeholder="Masukkan nama" type="text" name="name" id="name" class="form-control" 
                            value="{{ old('name', $user->name) }}" required>
                 </div>
 
                 <!-- Alamat -->
                 <div class="mb-3">
                     <label for="alamat" class="form-label"><strong>Alamat</strong></label>
-                    <textarea name="alamat" id="alamat" class="form-control" rows="3">{{ old('alamat', $user->alamat) }}</textarea>
+                    <textarea placeholder="Masukkan alamat lengkap" name="alamat" id="alamat" class="form-control" rows="3">{{ old('alamat', $user->alamat) }}</textarea>
                 </div>
 
                 <!-- No HP -->
                 <div class="mb-3">
                     <label for="no_hp" class="form-label"><strong>No HP</strong></label>
                     <input 
+                        placeholder="Masukkan no hp"
                         type="number" 
                         name="no_hp" 
                         id="no_hp" 

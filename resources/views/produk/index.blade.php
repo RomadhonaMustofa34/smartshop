@@ -43,12 +43,12 @@
 
                 <div class="col-md-6">
                     <label for="name" class="form-label fw-semibold">Nama Produk</label>
-                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
+                    <input placeholder="Masukkan nama produk" type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
                 </div>
 
                 <div class="col-md-6">
                     <label for="price" class="form-label fw-semibold">Harga Produk (Rp)</label>
-                    <input type="number" name="price" id="price" class="form-control" value="{{ old('price') }}" min="0" required>
+                    <input placeholder="Masukkan harga produk" type="number" name="price" id="price" class="form-control" value="{{ old('price') }}" min="0" required>
                 </div>
 
                 <div class="col-12">

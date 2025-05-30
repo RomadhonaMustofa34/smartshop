@@ -2,41 +2,24 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <!-- Title  -->
+    <meta charset="UTF-8" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Amado - Furniture Ecommerce Template | Checkout</title>
-
-    <!-- Favicon  -->
-    <link rel="icon" href="dist/img/core-img/favicon.ico">
-
-    <!-- Core Style CSS -->
-    <link rel="stylesheet" href="dist/css/core-style.css">
-    <link rel="stylesheet" href="dist/style.css">
-
+    <link rel="icon" href="dist/img/core-img/favicon.ico" />
+    <link rel="stylesheet" href="dist/css/core-style.css" />
+    <link rel="stylesheet" href="dist/style.css" />
 </head>
 
 <body>
     <!-- Search Wrapper Area Start -->
     <div class="search-wrapper section-padding-100">
-        <div class="search-close">
+        <div class="search-close" role="button" aria-label="Close search">
             <i class="fa fa-close" aria-hidden="true"></i>
         </div>
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="search-content">
-                        <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="dist/img/core-img/search.png" alt=""></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <!-- Search form -->
         </div>
     </div>
     <!-- Search Wrapper Area End -->
@@ -44,14 +27,12 @@
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
 
-        <!-- Mobile Nav (max width 767px)-->
+        <!-- Mobile Nav -->
         <div class="mobile-nav">
-            <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="{{ url('/') }}"><img src="dist/img/core-img/logo.png" alt=""></a>
+                <a href="{{ url('/') }}"><img src="dist/img/core-img/logo.png" alt="Amado Logo" /></a>
             </div>
-            <!-- Navbar Toggler -->
-            <div class="amado-navbar-toggler">
+            <div class="amado-navbar-toggler" role="button" aria-label="Toggle navigation">
                 <span></span><span></span><span></span>
             </div>
         </div>
@@ -59,183 +40,186 @@
         <!-- Header Area Start -->
         <header class="header-area clearfix">
             <!-- Close Icon -->
-            <div class="nav-close">
+            <div class="nav-close" role="button" aria-label="Close navigation">
                 <i class="fa fa-close" aria-hidden="true"></i>
             </div>
             <!-- Logo -->
             <div class="logo">
-                <a href="{{ url('/') }}"><img src="dist/img/core-img/logo.png" alt=""></a>
+                <a href="{{ url('/') }}"><img src="dist/img/core-img/logo.png" alt="Amado Logo" /></a>
             </div>
-           <!-- Amado Nav -->
-<nav class="amado-nav">
-    <ul>
-        @if(Auth::check())
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/profil" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="brand-text font-weight-bold">
-                        <b>{{ Auth::user()->name }}</b>
-                    </span>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                    <li>
-                        <form action="{{ route('logout') }}" method="POST" class="dropdown-item p-0">
-                            @csrf
-                            <button type="submit" class="btn btn-link dropdown-item">Logout</button>
-                        </form>
+
+            <!-- Navigation -->
+            <nav class="amado-nav" role="navigation" aria-label="Primary Navigation">
+                <ul>
+                    @if(Auth::check())
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/profil" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                                <b>{{ Auth::user()->name }}</b>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST" class="dropdown-item p-0">
+                                        @csrf
+                                        <button type="submit" class="btn btn-link dropdown-item">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @else
+                        <li><a href="{{ route('login') }}"><b>Guest (Login)</b></a></li>
+                    @endif
+
+                    <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
+                        <a href="{{ route('home') }}">Home</a>
+                    </li>
+                    <li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
+                        <a href="{{ route('shop') }}">Shop</a>
+                    </li>
+                    <li class="{{ request()->routeIs('pesanan') ? 'active' : '' }}">
+                        <a href="{{ route('pesanan') }}">Order</a>
                     </li>
                 </ul>
-            </li>
-        @else
-            <li><a href="{{ route('login') }}"><b>Guest (Login)</b></a></li>
-        @endif
+            </nav>
 
-        <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
-    <a href="{{ route('home') }}">Home</a>
-</li>
-<li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
-    <a href="{{ route('shop') }}">Shop</a>
-</li>
-
-<!-- <li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
-    <a href="{{ route('cart') }}">Cart</a>
-</li> -->
-<!-- <li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
-    <a href="{{ route('checkout') }}">Checkout</a>
-</li> -->
-    </ul>
-</nav>
             <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-100">
                 <a href="#" class="btn amado-btn mb-15">%Discount%</a>
                 <a href="#" class="btn amado-btn active">New this week</a>
             </div>
+
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <a href="{{ route('cart') }}" class="cart-nav">
-    <img src="{{ asset('dist/img/core-img/cart.png') }}" alt=""> Cart <span>({{ $cartItemCount }})</span>
-</a>
-                <a href="#" class="fav-nav"><img src="dist/img/core-img/favorites.png" alt=""> Favourite</a>
-                <a href="#" class="search-nav"><img src="dist/img/core-img/search.png" alt=""> Search</a>
+                <a href="{{ route('cart') }}" class="cart-nav" aria-label="View cart">
+                    <img src="{{ asset('dist/img/core-img/cart.png') }}" alt="Cart icon" /> Cart <span>({{ $cartItemCount ?? 0 }})</span>
+                </a>
+                <a href="#" class="fav-nav" aria-label="View favourites"><img src="dist/img/core-img/favorites.png" alt="Favorites icon" /> Favourite</a>
+                <a href="#" class="search-nav" aria-label="Search products"><img src="dist/img/core-img/search.png" alt="Search icon" /> Search</a>
             </div>
+
             <!-- Social Button -->
-            <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            <div class="social-info d-flex justify-content-between" role="list">
+                <a href="#" role="listitem" aria-label="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                <a href="#" role="listitem" aria-label="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a href="#" role="listitem" aria-label="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#" role="listitem" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
             </div>
         </header>
         <!-- Header Area End -->
 
-<div class="cart-table-area section-padding-100">
-    <div class="container-fluid">
-        <div class="row">
-            <form action="{{ route('checkout.submit') }}" method="POST" class="row w-100">
-                @csrf
-                
-                <div class="col-12 col-lg-8">
-                    <div class="checkout_details_area mt-50 clearfix">
+        <div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+                <div class="row">
 
-                        <div class="cart-title">
-                            <h2>Checkout</h2>
-                        </div>
+                    {{-- Notifikasi sukses dan error --}}
+                    <div class="col-12 mb-3">
+                        @if(session('success'))
+                            <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+                        @endif
 
-                        <!-- Checkbox untuk memilih memesan untuk siapa -->
-                        <div class="col-12 mb-3 px-0">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="isi_dari_profil" onclick="isiDariProfil()">
-                                <label class="form-check-label" for="isi_dari_profil">
-                                    Pesan untuk diri sendiri (gunakan data dari profil)
-                                </label>
+                        @if ($errors->any())
+                            <div class="alert alert-danger" role="alert">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
-                        </div>
-
-                        <!-- Input Nama -->
-                        <div class="col-12 mb-3 px-0">
-                            <label for="nama" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" required>
-                        </div>
-
-                        <!-- Input Alamat -->
-                        <div class="col-12 mb-3 px-0">
-                            <label for="alamat" class="form-label">Alamat Lengkap</label>
-                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat Lengkap" required>
-                        </div>
-
-                        <!-- Input No HP -->
-                        <div class="col-12 mb-3 px-0">
-                            <label for="no_hp" class="form-label">Nomor HP</label>
-                            <input type="tel" class="form-control" id="no_hp" name="no_hp" placeholder="Nomor HP" required>
-                        </div>
-
-                        <!-- Hilangkan payment method di sini untuk hindari duplikat -->
+                        @endif
                     </div>
-                </div>
 
-                <div class="col-12 col-lg-4">
-                    <div class="cart-summary">
-                        <h5>Cart Total</h5>
-                        <ul class="summary-table">
-                            <li><span>Subtotal:</span> <span>Rp.{{ number_format($subtotal, 2) }}</span></li>
-                            <li><span>Delivery:</span> <span>{{ $delivery == 0 ? 'Free' : 'Rp.' . number_format($delivery, 2) }}</span></li>
-                            <li><span>Total:</span> <span>Rp.{{ number_format($total, 2) }}</span></li>
-                        </ul>
+                    <form action="{{ route('checkout.submit') }}" method="POST" class="row w-100 needs-validation" novalidate>
+                        @csrf
+                        <div class="col-12 col-lg-8">
+                            <div class="checkout_details_area mt-50 clearfix">
 
-                        <!-- Payment Method (hanya 1 tempat supaya tidak duplikat) -->
-                        <div class="payment-method mt-4">
-                            <div class="custom-control custom-radio mr-sm-2">
-                                <input type="radio" class="custom-control-input" id="cod" name="payment_method" value="cod" checked>
-                                <label class="custom-control-label" for="cod">Cash on Delivery</label>
-                            </div>
+                                <div class="cart-title">
+                                    <h2>Checkout</h2>
+                                </div>
 
-                            <div class="custom-control custom-radio mr-sm-2 mt-2">
-                                <input type="radio" class="custom-control-input" id="qris" name="payment_method" value="qris">
-                                <label class="custom-control-label" for="qris">
-                                    Qris
-                                    <img class="ml-2" src="dist/img/core-img/qris.png" alt="Qris" style="height: 20px;">
-                                </label>
+                                <!-- Checkbox Pesan untuk diri sendiri -->
+                                <div class="col-12 mb-3 px-0">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="isi_dari_profil" aria-describedby="profilHelp" onclick="isiDariProfil()">
+                                        <label class="form-check-label" for="isi_dari_profil">
+                                            Pesan untuk diri sendiri (gunakan data dari profil)
+                                        </label>
+                                        <small id="profilHelp" class="form-text text-muted">Gunakan data yang tersimpan pada profil Anda.</small>
+                                    </div>
+                                </div>
+
+                                <!-- Input Nama -->
+                                <div class="col-12 mb-3 px-0">
+                                    <label for="nama" class="form-label">Nama Lengkap</label>
+                                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" required value="{{ old('nama') }}" />
+                                    <div class="invalid-feedback">Nama lengkap wajib diisi.</div>
+                                </div>
+
+                                <!-- Input Alamat -->
+                                <div class="col-12 mb-3 px-0">
+                                    <label for="alamat" class="form-label">Alamat Lengkap</label>
+                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat Lengkap" required value="{{ old('alamat') }}" />
+                                    <div class="invalid-feedback">Alamat lengkap wajib diisi.</div>
+                                </div>
+
+                                <!-- Input No HP -->
+                                <div class="col-12 mb-3 px-0">
+                                    <label for="no_hp" class="form-label">Nomor HP</label>
+                                    <input type="tel" class="form-control" id="no_hp" name="no_hp" placeholder="Nomor HP" pattern="^[0-9+\-\s]*$" required value="{{ old('no_hp') }}" />
+                                    <div class="invalid-feedback">Nomor HP wajib diisi dan hanya boleh angka, spasi, tanda + dan -.</div>
+                                </div>
+
                             </div>
                         </div>
 
-                        <!-- Tombol submit untuk checkout -->
-                        <div class="cart-btn mt-4">
-                            <button type="submit" class="btn amado-btn w-100">Checkout</button>
+                        <div class="col-12 col-lg-4">
+                            <div class="cart-summary">
+                                <h5>Cart Total</h5>
+                                <ul class="summary-table">
+                                    <li><span>Subtotal:</span> <span>Rp.{{ number_format($subtotal ?? 0, 2) }}</span></li>
+                                    <li><span>Delivery:</span> <span>{{ ($delivery ?? 0) == 0 ? 'Free' : 'Rp.' . number_format($delivery ?? 0, 2) }}</span></li>
+                                    <li><span>Total:</span> <span>Rp.{{ number_format($total ?? 0, 2) }}</span></li>
+                                </ul>
+
+                                <!-- Payment Method -->
+                                <fieldset class="payment-method mt-4" aria-label="Payment Method">
+                                    <legend>Pilih Metode Pembayaran</legend>
+                                    <div class="custom-control custom-radio mr-sm-2">
+                                        <input type="radio" class="custom-control-input" id="cod" name="payment_method" value="cod" checked />
+                                        <label class="custom-control-label" for="cod">Cash on Delivery</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio mr-sm-2 mt-2">
+                                        <input type="radio" class="custom-control-input" id="qris" name="payment_method" value="qris" />
+                                        <label class="custom-control-label" for="qris">
+                                            Qris
+                                            <img class="ml-2" src="dist/img/core-img/qris.png" alt="Logo QRIS" style="height: 20px;" />
+                                        </label>
+                                    </div>
+                                </fieldset>
+
+                                <div class="cart-btn mt-4">
+                                    <button type="submit" class="btn amado-btn w-100">Checkout</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+
                 </div>
-            </form> <!-- Tutup form di sini -->
+            </div>
         </div>
     </div>
-</div>
+     <!-- ##### Main Content Wrapper End ##### -->
 
-<script>
-    function isiDariProfil() {
-        const checkbox = document.getElementById('isi_dari_profil');
-        if (checkbox.checked) {
-            document.getElementById('nama').value = @json(Auth::user()->name);
-            document.getElementById('alamat').value = @json(Auth::user()->alamat ?? '');
-            document.getElementById('no_hp').value = @json(Auth::user()->no_hp ?? '');
-        } else {
-            document.getElementById('nama').value = '';
-            document.getElementById('alamat').value = '';
-            document.getElementById('no_hp').value = '';
-        }
-    }
-</script>
-
-
-    <!-- ##### Newsletter Area Start ##### -->
+    <!-- Newsletter Area -->
     <section class="newsletter-area section-padding-100-0">
         <div class="container">
             <div class="row align-items-center">
-                <!-- Newsletter Text -->
                 <div class="col-12 col-lg-6 col-xl-7">
                     <div class="newsletter-text mb-100">
                         <h2>Subscribe for a <span>25% Discount</span></h2>
-                        <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur. Donec auctor interdum purus, ac finibus massa bibendum nec.</p>
+                        <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur.</p>
                     </div>
                 </div>
-                <!-- Newsletter Form -->
                 <div class="col-12 col-lg-6 col-xl-5">
                     <div class="newsletter-form mb-100">
                         <form action="#" method="post">
@@ -247,42 +231,82 @@
             </div>
         </div>
     </section>
-    <!-- ##### Newsletter Area End ##### -->
 
-    <!-- ##### Footer Area Start ##### -->
+    <!-- Footer -->
     <footer class="footer_area clearfix">
         <div class="container">
             <div class="row align-items-center">
-                <!-- Single Widget Area -->
                 <div class="col-12 col-lg-4">
                     <div class="single_widget_area">
-                        <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="index.html"><img src="dist/img/core-img/logo2.png" alt=""></a>
+                            <a href="{{ route('home') }}"><img src="{{ asset('dist/img/core-img/logo2.png') }}" alt=""></a>
                         </div>
-                        <!-- Copywrite Text -->
-                        <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        <p class="copywrite">
+                            &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |
+                            Template by <a href="https://colorlib.com" target="_blank">Colorlib</a> |
+                            Redistributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
+                        </p>
                     </div>
                 </div>
-                
             </div>
         </div>
     </footer>
-    <!-- ##### Footer Area End ##### -->
 
-    <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
+    <!-- jQuery -->
     <script src="dist/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="dist/js/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="dist/js/bootstrap.min.js"></script>
-    <!-- Plugins js -->
-    <script src="dist/js/plugins.js"></script>
-    <!-- Active js -->
+    <!-- Popper -->
+    <script src="dist/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="dist/js/bootstrap/bootstrap.min.js"></script>
+    <!-- Plugins -->
+    <script src="dist/js/plugins/plugins.js"></script>
+    <!-- Active -->
     <script src="dist/js/active.js"></script>
 
+    <script>
+        function isiDariProfil() {
+            const checkbox = document.getElementById('isi_dari_profil');
+            const namaInput = document.getElementById('nama');
+            const alamatInput = document.getElementById('alamat');
+            const noHpInput = document.getElementById('no_hp');
+
+            if (!checkbox.checked) {
+                // Kosongkan jika tidak dicentang
+                namaInput.value = '';
+                alamatInput.value = '';
+                noHpInput.value = '';
+                return;
+            }
+
+            @if(Auth::check())
+                // Isi dari data user yang sudah login
+                namaInput.value = @json(Auth::user()->name);
+                alamatInput.value = @json(Auth::user()->alamat ?? '');
+                noHpInput.value = @json(Auth::user()->no_hp ?? '');
+            @else
+                alert('Silakan login untuk menggunakan fitur ini.');
+                checkbox.checked = false;
+            @endif
+        }
+
+        // Validasi form bootstrap 4+
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
 </body>
 
 </html>

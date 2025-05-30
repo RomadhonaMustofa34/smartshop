@@ -11,18 +11,25 @@ class Checkout extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'nama',
-        'alamat',
-        'no_hp',
-        'payment_method',
-        'product_id',
-        'quantity',
-    ];
+    'user_id',
+    'nama',
+    'alamat',
+    'no_hp',
+    'payment_method',
+    'product_id',
+    'quantity',
+    'status',
+];
+
 
     // Relasi ke produk
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }
