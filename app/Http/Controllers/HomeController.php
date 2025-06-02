@@ -8,10 +8,12 @@ use App\Models\Product;
 class HomeController extends Controller
 {
     public function index() 
-    {
-    $products = Product::all();
+{
+    // Ambil 6 produk terbaru berdasarkan waktu dibuat
+    $products = Product::orderBy('created_at', 'desc')->take(6)->get();
     return view('home.index', compact('products'));
-    }
+}
+
 
     
 

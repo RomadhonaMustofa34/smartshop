@@ -84,4 +84,22 @@
         padding: 15px;
         font-size: 16px;
     }
+
+    .pagination {
+    font-size: 14px;
+}
+
+.page-item .page-link {
+    padding: 6px 12px;
+    margin: 0 2px;
+    border-radius: 4px;
+    color: #333;
+}
+
+.page-item.active .page-link {
+    background-color: #fbb710;
+    border-color: #fbb710;
+    color: #fff;
+}
+
 }
