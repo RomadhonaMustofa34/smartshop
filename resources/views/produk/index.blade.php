@@ -1,19 +1,20 @@
+@php use Illuminate\Support\Str; @endphp
+
 @extends('layouts.app')
 
 @section('content')
 <div class="container mt-5">
     <style>
-  .section-title {
-    color: #000;
-    font-weight: 700;
-    border-bottom: 3px solid #000;
-    padding-bottom: 8px;
-    max-width: max-content;
-  }
-</style>
+      .section-title {
+        color: #000;
+        font-weight: 700;
+        border-bottom: 3px solid #000;
+        padding-bottom: 8px;
+        max-width: max-content;
+      }
+    </style>
 
-<h2 class="mb-4 section-title">Upload Produk Baru</h2>
-
+    <h2 class="mb-4 section-title">Upload Produk Baru</h2>
 
     {{-- Pesan sukses --}}
     @if(session('success'))
@@ -51,6 +52,24 @@
                     <input placeholder="Masukkan harga produk" type="number" name="price" id="price" class="form-control" value="{{ old('price') }}" min="0" required>
                 </div>
 
+                <div class="col-md-6">
+                    <label for="category_id" class="form-label fw-semibold">Kategori Produk</label>
+                    <select name="category_id" id="category_id" class="form-select">
+                        <option value="" disabled selected>Pilih Kategori</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="new_category" class="form-label fw-semibold">Atau Tambah Kategori Baru</label>
+                    <input type="text" name="new_category" id="new_category" class="form-control" placeholder="Masukkan kategori baru" value="{{ old('new_category') }}">
+                    <small class="text-muted">Kosongkan jika memilih dari daftar di atas</small>
+                </div>
+
                 <div class="col-12">
                     <label for="description" class="form-label fw-semibold">Deskripsi Produk</label>
                     <textarea name="description" id="description" class="form-control" rows="4" placeholder="Masukkan deskripsi produk..." required>{{ old('description') }}</textarea>
@@ -78,6 +97,7 @@
                     <th style="width: 5%">No</th>
                     <th style="width: 10%">Gambar</th>
                     <th>Nama Produk</th>
+                    <th>Kategori</th>
                     <th>Deskripsi</th>
                     <th style="width: 15%">Harga</th>
                     <th style="width: 18%">Tanggal Upload</th>
@@ -92,25 +112,23 @@
                         <img src="{{ asset('storage/' . $product->image) }}" alt="gambar {{ $product->name }}" class="img-thumbnail" style="max-width: 80px; height: auto;">
                     </td>
                     <td class="fw-semibold">{{ $product->name }}</td>
+                    <td>{{ $product->category->name ?? 'Tidak ada' }}</td>
                     <td>{{ Str::limit($product->description, 70) }}</td>
                     <td class="text-success fw-semibold">Rp{{ number_format($product->price, 0, ',', '.') }}</td>
                     <td>{{ $product->created_at->format('d M Y, H:i') }}</td>
                     <td>
-                        <a href="{{ route('produk.edit', $product->id) }}" class="btn btn-sm btn-warning me-1">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <form action="{{ route('produk.destroy', $product->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
+                        <a href="{{ route('produk.edit', $product->id) }}" class="btn btn-sm btn-warning">Edit</a>
+
+                        <form action="{{ route('produk.destroy', $product->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash-alt"></i> Hapus
-                            </button>
+                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                         </form>
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="text-center fst-italic text-muted">Belum ada produk.</td>
+                    <td colspan="8" class="text-center fst-italic text-muted">Belum ada produk.</td>
                 </tr>
                 @endforelse
             </tbody>

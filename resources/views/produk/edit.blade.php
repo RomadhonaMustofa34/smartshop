@@ -3,17 +3,16 @@
 @section('content')
 <div class="container mt-5" style="max-width: 700px;">
     <style>
-  .section-title {
-    color: #000;
-    font-weight: 700;
-    border-bottom: 3px solid #000;
-    padding-bottom: 8px;
-    max-width: max-content;
-  }
-</style>
+      .section-title {
+        color: #000;
+        font-weight: 700;
+        border-bottom: 3px solid #000;
+        padding-bottom: 8px;
+        max-width: max-content;
+      }
+    </style>
 
-<h2 class="mb-4 section-title">Edit Produk</h2>
-
+    <h2 class="mb-4 section-title">Edit Produk</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -42,6 +41,19 @@
                     <label for="price" class="form-label fw-semibold">Harga Produk (Rp)</label>
                     <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}" class="form-control" min="0" required>
                     <div class="invalid-feedback">Harga produk wajib diisi dan tidak boleh negatif.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="category_id" class="form-label fw-semibold">Kategori Produk</label>
+                    <select name="category_id" id="category_id" class="form-select" required>
+                        <option value="" disabled {{ old('category_id', $product->category_id) ? '' : 'selected' }}>Pilih Kategori</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <div class="invalid-feedback">Kategori produk wajib dipilih.</div>
                 </div>
 
                 <div class="mb-3">
