@@ -4,29 +4,55 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-
+use App\Models\Category;
 
 class ShopController extends Controller
 {
+    
+
     public function index(Request $request)
     {
-        // Ambil parameter dari query string
-        $sort = $request->query('sort', 'date'); // default sorting by date
-        $view = (int) $request->query('view', 12); // default 12 produk per halaman
+        $sort = $request->query('sort', 'date');
+        $view = (int) $request->query('view', 12);
 
-        // Query builder produk
         $query = Product::query();
 
-        // Sorting produk sesuai pilihan user
         if ($sort === 'newest') {
             $query->orderBy('created_at', 'desc');
         } else {
-            // default atau 'date'
             $query->orderBy('created_at', 'asc');
         }
-        // Pagination dengan jumlah per halaman sesuai pilihan user
+
         $products = $query->paginate($view)->appends(['sort' => $sort, 'view' => $view]);
 
-        return view('home.shop', compact('products', 'sort', 'view'));
+        // Ambil semua kategori
+        $categories = Category::all();
+
+        return view('home.shop', compact('products', 'sort', 'view', 'categories'));
     }
+
+    public function byCategory(Request $request, $id)
+{
+    $sort = $request->query('sort', 'date');
+    $view = (int) $request->query('view', 12);
+
+    $query = Product::where('category_id', $id);
+
+    if ($sort === 'newest') {
+        $query->orderBy('created_at', 'desc');
+    } else {
+        $query->orderBy('created_at', 'asc');
+    }
+
+    $products = $query->paginate($view)->appends(['sort' => $sort, 'view' => $view]);
+
+    $categories = Category::all();
+    $selectedCategory = Category::findOrFail($id);
+
+    return view('home.shop', compact('products', 'sort', 'view', 'categories', 'selectedCategory'));
+}
+
+
+
+
 }

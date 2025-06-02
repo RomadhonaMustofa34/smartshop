@@ -129,6 +129,30 @@
         </header>
         <!-- Header Area End -->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="shop_sidebar_area">
 
             <!-- ##### Single Widget ##### -->
@@ -139,14 +163,15 @@
                 <!--  Catagories  -->
                 <div class="catagories-menu">
                     <ul>
-                        <li class="active"><a href="#">Chairs</a></li>
-                        <li><a href="#">Beds</a></li>
-                        <li><a href="#">Accesories</a></li>
-                        <li><a href="#">Furniture</a></li>
-                        <li><a href="#">Home Deco</a></li>
-                        <li><a href="#">Dressings</a></li>
-                        <li><a href="#">Tables</a></li>
+                        @foreach($categories as $category)
+                            <li class="{{ (isset($selectedCategory) && $selectedCategory->id == $category->id) ? 'active' : '' }}">
+                                <a href="{{ route('produk.kategori', ['id' => $category->id, 'sort' => $sort ?? 'date', 'view' => $view ?? 12]) }}">
+                                    {{ $category->name }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
+
                 </div>
             </div>
 
@@ -181,25 +206,6 @@
                         <input class="form-check-input" type="checkbox" value="" id="artdeco">
                         <label class="form-check-label" for="artdeco">Artdeco</label>
                     </div>
-                </div>
-            </div>
-
-            <!-- ##### Single Widget ##### -->
-            <div class="widget color mb-50">
-                <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Color</h6>
-
-                <div class="widget-desc">
-                    <ul class="d-flex">
-                        <li><a href="#" class="color1"></a></li>
-                        <li><a href="#" class="color2"></a></li>
-                        <li><a href="#" class="color3"></a></li>
-                        <li><a href="#" class="color4"></a></li>
-                        <li><a href="#" class="color5"></a></li>
-                        <li><a href="#" class="color6"></a></li>
-                        <li><a href="#" class="color7"></a></li>
-                        <li><a href="#" class="color8"></a></li>
-                    </ul>
                 </div>
             </div>
 
@@ -329,6 +335,22 @@
         </div>
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     <!-- ##### Newsletter Area Start ##### -->
     <section class="newsletter-area section-padding-100-0">
