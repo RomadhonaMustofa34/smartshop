@@ -102,4 +102,39 @@
     color: #fff;
 }
 
+.single-product-wrapper {
+    transition: box-shadow 0.3s ease;
+}
+
+.single-product-wrapper:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.product-img {
+    height: 250px; /* Sesuaikan tinggi gambar */
+}
+
+.product-img img {
+    object-fit: cover;
+    height: 100%;
+    transition: opacity 0.3s ease;
+}
+
+.product-img .hover-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-img:hover .hover-img {
+    opacity: 1;
+}
+
+.product-img:hover img:first-child {
+    opacity: 0;
+}
+
+
 }

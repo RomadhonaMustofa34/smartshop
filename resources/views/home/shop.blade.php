@@ -57,19 +57,22 @@
         </div>
 
         <!-- Header Area Start -->
+        <!-- Header Area Start -->
         <header class="header-area clearfix">
-            <!-- Close Icon -->
-            <div class="nav-close">
-                <i class="fa fa-close" aria-hidden="true"></i>
-            </div>
-            <!-- Logo -->
-            <div class="logo">
-                <a href="{{ url('/') }}"><img src="{{ asset('dist/img/core-img/logo.png') }}" alt="">
-            </div>
-           <!-- Amado Nav -->
-<nav class="amado-nav">
-    <ul>
-        @if(Auth::check())
+    <!-- Close Icon -->
+    <div class="nav-close">
+        <i class="fa fa-close" aria-hidden="true"></i>
+    </div>
+
+    <!-- Logo -->
+    <div class="logo">
+        <a href="#"><img src="{{ asset('dist/img/core-img/logo.png') }}" alt=""></a>
+    </div>
+
+    <!-- Amado Nav -->
+    <nav class="amado-nav">
+        <ul>
+            @if(Auth::check())
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="/profil" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <span class="brand-text font-weight-bold">
@@ -89,44 +92,42 @@
             <li><a href="{{ route('login') }}"><b>Guest (Login)</b></a></li>
         @endif
 
-        <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
-    <a href="{{ route('home') }}">Home</a>
-</li>
-<li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
-    <a href="{{ route('shop') }}">Shop</a>
-</li>
-<li class="{{ request()->routeIs('pesanan') ? 'active' : '' }}">
-    <a href="{{ route('pesanan') }}">Order</a>
-</li>
-<!-- <li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
-    <a href="{{ route('cart') }}">Cart</a>
-</li> -->
-<!-- <li class="{{ request()->routeIs('checkout') ? 'active' : '' }}">
-    <a href="{{ route('checkout') }}">Checkout</a>
-</li> -->
-    </ul>
-</nav>
-            <!-- Button Group -->
-            <div class="amado-btn-group mt-30 mb-100">
-                <a href="#" class="btn amado-btn mb-15">%Discount%</a>
-                <a href="#" class="btn amado-btn active">New this week</a>
-            </div>
-            <!-- Cart Menu -->
-            <div class="cart-fav-search mb-100">
-                <a href="{{ route('cart') }}" class="cart-nav">
-    <img src="{{ asset('dist/img/core-img/cart.png') }}" alt=""> Cart <span>({{ $cartItemCount }})</span>
-</a>
-                <a href="#" class="fav-nav"><img src="dist/img/core-img/favorites.png" alt=""> Favourite</a>
-                <a href="#" class="search-nav"><img src="dist/img/core-img/search.png" alt=""> Search</a>
-            </div>
-            <!-- Social Button -->
-            <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            </div>
-        </header>
+            <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
+                <a href="{{ route('home') }}">Home</a>
+            </li>
+            <li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
+                <a href="{{ route('shop') }}">Shop</a>
+            </li>
+            <li class="{{ request()->routeIs('pesanan') ? 'active' : '' }}">
+                <a href="{{ route('pesanan') }}">Order</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Button Group -->
+    <div class="amado-btn-group mt-30 mb-100">
+        <a href="#" class="btn amado-btn mb-15">%Discount%</a>
+        <a href="#" class="btn amado-btn active">New this week</a>
+    </div>
+
+    <!-- Cart Menu -->
+    <div class="cart-fav-search mb-100">
+        <a href="{{ route('cart') }}" class="cart-nav">
+            <img src="{{ asset('dist/img/core-img/cart.png') }}" alt=""> Cart <span>({{ $cartItemCount ?? 0 }})</span>
+        </a>
+        <a href="#" class="fav-nav"><img src="{{ asset('dist/img/core-img/favorites.png') }}" alt=""> Favourite</a>
+        <a href="#" class="search-nav"><img src="{{ asset('dist/img/core-img/search.png') }}" alt=""> Search</a>
+    </div>
+
+    <!-- Social Button -->
+    <div class="social-info d-flex justify-content-between">
+        <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    </div>
+</header>
+
         <!-- Header Area End -->
 
 
@@ -176,57 +177,6 @@
                             </li>
                         @endforeach
                     </ul>
-                </div>
-            </div>
-
-            <!-- ##### Single Widget ##### -->
-            <div class="widget brands mb-50">
-                <!-- Widget Title -->
-                <!-- <h6 class="widget-title mb-30">Brands</h6>
-
-                <div class="widget-desc">
-                    
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="amado">
-                        <label class="form-check-label" for="amado">Amado</label>
-                    </div>
-                    
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="ikea">
-                        <label class="form-check-label" for="ikea">Ikea</label>
-                    </div>
-                    
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="furniture">
-                        <label class="form-check-label" for="furniture">Furniture Inc</label>
-                    </div>
-                    
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="factory">
-                        <label class="form-check-label" for="factory">The factory</label>
-                    </div>
-                    
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="artdeco">
-                        <label class="form-check-label" for="artdeco">Artdeco</label>
-                    </div>
-                </div> -->
-            </div>
-
-            <!-- ##### Single Widget ##### -->
-            <div class="widget price mb-50">
-                <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Price</h6>
-
-                <div class="widget-desc">
-                    <div class="slider-range">
-                        <div data-min="10" data-max="1000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="10" data-value-max="1000" data-label-result="">
-                            <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                        </div>
-                        <div class="range-price">$10 - $1000</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -285,14 +235,18 @@
     <div class="col-12 col-sm-6 col-md-12 col-xl-6">
         <div class="single-product-wrapper">
             <!-- Product Image -->
-            <div class="product-img">
-                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
-                <!-- Hover Thumb -->
-                <img class="hover-img" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
-            </div>
+            <a href="{{ route('productdetails.show', $product->id) }}" style="display: block;">
+                <div class="product-img" style="width: 100%; height: 250px; overflow: hidden; border-radius: 5px; position: relative;">
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" 
+                        style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 5px;">
+                    <!-- Hover Thumb -->
+                    <img class="hover-img" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" 
+                        style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: 5px; opacity: 0; transition: opacity 0.3s ease;">
+                </div>
+            </a>
 
             <!-- Product Description -->
-            <div class="product-description d-flex align-items-center justify-content-between">
+            <div class="product-description d-flex align-items-center justify-content-between mt-2">
                 <!-- Product Meta Data -->
                 <div class="product-meta-data">
                     <div class="line"></div>
@@ -311,9 +265,14 @@
                         <i class="fa fa-star" aria-hidden="true"></i>
                     </div>
                     <div class="cart">
-                        <a href="{{ route('cart.add', $product->id) }}" data-toggle="tooltip" data-placement="left" title="Add to Cart">
-                            <img src="{{ asset('dist/img/core-img/cart.png') }}" alt="">
-                        </a>
+                        <form action="{{ route('cart.add') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="btn p-0" data-toggle="tooltip" data-placement="left" title="Add to Cart" style="background: none; border: none;">
+                                <img src="{{ asset('dist/img/core-img/cart.png') }}" alt="Add to Cart">
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -326,15 +285,16 @@
     @endforelse
 </div>
 
+<div class="row">
+    <div class="col-12">
+        <!-- Pagination -->
+        <div class="d-flex justify-content-end mt-4">
+            {{ $products->links() }}
+        </div>
+    </div>
+</div>
 
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Pagination -->
-                        <div class="d-flex justify-content-end mt-4">
-                            {{ $products->links() }}
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
