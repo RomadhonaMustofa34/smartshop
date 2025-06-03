@@ -12,11 +12,11 @@
     <title>Amado - Furniture Ecommerce Template | Shop</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="icon" href="{{ asset('dist/img/core-img/favicon.ico') }}">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="dist/css/core-style.css">
-    <link rel="stylesheet" href="dist/style.css">
+    <link rel="stylesheet" href="{{ asset('dist/css/core-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/style.css') }}">
 
 </head>
 
@@ -48,7 +48,7 @@
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="{{ url('/') }}"><img src="dist/img/core-img/logo.png" alt=""></a>
+                <a href="{{ url('/') }}"><img src="{{ asset('dist/img/core-img/logo.png') }}" alt="">
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -64,7 +64,7 @@
             </div>
             <!-- Logo -->
             <div class="logo">
-                <a href="{{ url('/') }}"><img src="dist/img/core-img/logo.png" alt=""></a>
+                <a href="{{ url('/') }}"><img src="{{ asset('dist/img/core-img/logo.png') }}" alt="">
             </div>
            <!-- Amado Nav -->
 <nav class="amado-nav">
@@ -163,50 +163,54 @@
                 <!--  Catagories  -->
                 <div class="catagories-menu">
                     <ul>
+                        <li class="{{ !isset($selectedCategory) ? 'active' : '' }}">
+                            <a href="{{ route('shop', ['sort' => $sort ?? 'date', 'view' => $view ?? 12]) }}">
+                                All Products
+                            </a>
+                        </li>
                         @foreach($categories as $category)
                             <li class="{{ (isset($selectedCategory) && $selectedCategory->id == $category->id) ? 'active' : '' }}">
-                                <a href="{{ route('produk.kategori', ['id' => $category->id, 'sort' => $sort ?? 'date', 'view' => $view ?? 12]) }}">
+                                <a href="{{ route('shop.category', ['id' => $category->id, 'sort' => $sort ?? 'date', 'view' => $view ?? 12]) }}">
                                     {{ $category->name }}
                                 </a>
                             </li>
                         @endforeach
                     </ul>
-
                 </div>
             </div>
 
             <!-- ##### Single Widget ##### -->
             <div class="widget brands mb-50">
                 <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Brands</h6>
+                <!-- <h6 class="widget-title mb-30">Brands</h6>
 
                 <div class="widget-desc">
-                    <!-- Single Form Check -->
+                    
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="amado">
                         <label class="form-check-label" for="amado">Amado</label>
                     </div>
-                    <!-- Single Form Check -->
+                    
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="ikea">
                         <label class="form-check-label" for="ikea">Ikea</label>
                     </div>
-                    <!-- Single Form Check -->
+                    
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="furniture">
                         <label class="form-check-label" for="furniture">Furniture Inc</label>
                     </div>
-                    <!-- Single Form Check -->
+                    
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="factory">
                         <label class="form-check-label" for="factory">The factory</label>
                     </div>
-                    <!-- Single Form Check -->
+                    
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="artdeco">
                         <label class="form-check-label" for="artdeco">Artdeco</label>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- ##### Single Widget ##### -->
@@ -401,7 +405,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
-    <script src="dist/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="{{ asset('dist/js/jquery/jquery-2.2.4.min.js') }}"></script>
     <!-- Popper js -->
     <script src="dist/js/popper.min.js"></script>
     <!-- Bootstrap js -->

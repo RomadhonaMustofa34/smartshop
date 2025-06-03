@@ -8,9 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Amado - Furniture Ecommerce Template | Cart</title>
 
-    <link rel="icon" href="dist/img/core-img/favicon.ico">
-    <link rel="stylesheet" href="dist/css/core-style.css">
-    <link rel="stylesheet" href="dist/style.css">
+    <link rel="icon" href="{{ asset('dist/img/core-img/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/core-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/style.css') }}">
+
 
     <!-- Penyesuaian font agar konsisten dengan menu -->
     <style>

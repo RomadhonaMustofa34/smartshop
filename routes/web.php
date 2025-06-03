@@ -24,7 +24,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Halaman shop / toko
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
-Route::get('/produk/kategori/{id}', [ShopController::class, 'byCategory'])->name('produk.kategori');
+Route::get('/shop/category/{id}', [ShopController::class, 'byCategory'])->name('shop.category');
+
 
 
 // Halaman detail produk
