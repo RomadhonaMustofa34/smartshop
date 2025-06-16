@@ -15,6 +15,7 @@ class ProductController extends Controller
     {
         if (Auth::check()) {
             $products = Product::latest()->get();
+            // $products = Product::where('category_id','2')->get();
             $categories = Category::all();
             return view('produk.index', compact('products', 'categories'));
         }
